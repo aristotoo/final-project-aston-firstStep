@@ -13,6 +13,18 @@ public class Person {
         this.surname = builder.surname;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
     @Override
     public String toString() {
         return "Person{" +

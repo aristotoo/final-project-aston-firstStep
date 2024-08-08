@@ -13,6 +13,18 @@ public class Barrel {
         this.material = builder.material;
     }
 
+    public double getVolume() {
+        return volume;
+    }
+
+    public String getStoredMaterial() {
+        return storedMaterial;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
