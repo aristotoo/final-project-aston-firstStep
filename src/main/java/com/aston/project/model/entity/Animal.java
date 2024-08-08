@@ -13,6 +13,18 @@ public class Animal {
         this.hasFur = builder.hasFur;
     }
 
+    public String getSpecies() {
+        return species;
+    }
+
+    public String getEyeColor() {
+        return eyeColor;
+    }
+
+    public boolean isHasFur() {
+        return hasFur;
+    }
+
     @Override
     public String toString() {
         return "Animal{" +
