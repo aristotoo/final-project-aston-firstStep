@@ -1,0 +1,15 @@
+{
+surname:test,
+gender:male,
+age:kk
+},
+{
+surname:test,
+gender:мужской,
+age:4
+},
+{
+surname:,
+gender:мужской,
+age:-1
+}

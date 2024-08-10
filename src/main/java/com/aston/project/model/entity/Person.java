@@ -3,7 +3,7 @@ package com.aston.project.model.entity;
 import java.util.Objects;
 
 public class Person {
-    private final String gender;
+    private final Gender gender;
     private final int age;
     private final String surname;
 
@@ -13,7 +13,7 @@ public class Person {
         this.surname = builder.surname;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
@@ -53,12 +53,12 @@ public class Person {
     }
 
     public static class PersonBuilder{
-        private String gender;
+        private Gender gender;
         private int age;
         private String surname;
 
 
-        public PersonBuilder setGender(String gender){
+        public PersonBuilder setGender(Gender gender){
             this.gender = gender;
             return this;
         }
