@@ -1,4 +1,4 @@
-package com.aston.project.model.searches;
+package com.aston.project.service.utils.searches;
 
 import java.util.List;
 import java.util.Optional;
