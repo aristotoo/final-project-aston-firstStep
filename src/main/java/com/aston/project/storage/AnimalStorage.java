@@ -5,12 +5,16 @@ import com.aston.project.model.entity.Animal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnimalStorage {
+public class AnimalStorage implements AbstractStorage<Animal> {
     private final List<Animal> animals = new ArrayList<>();
-    public void add(Animal animal){
-        animals.add(animal);
+
+    @Override
+    public void add(Animal model) {
+        animals.add(model);
     }
-    public List<Animal> getAnimals(){
+
+    @Override
+    public List<Animal> getStorage() {
         return animals;
     }
 }

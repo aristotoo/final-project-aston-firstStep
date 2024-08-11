@@ -5,14 +5,16 @@ import com.aston.project.model.entity.Barrel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BarrelStorage {
-    private final List<Barrel> barrels = new ArrayList<>();
+public class BarrelStorage implements AbstractStorage<Barrel> {
+    private final ArrayList<Barrel> barrels = new ArrayList<>();
 
-    public void add(Barrel Barrel) {
-        barrels.add(Barrel);
+    @Override
+    public void add(Barrel model) {
+        barrels.add(model);
     }
 
-    public List<Barrel> getBarrels() {
+    @Override
+    public List<Barrel> getStorage() {
         return barrels;
     }
 }

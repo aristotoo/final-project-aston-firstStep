@@ -1,6 +1,7 @@
 package com.aston.project.service.file;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -11,13 +12,18 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+
 public class TxtFileFilling {
     private TypeFillingStrategy typeFillingStrategy;
-    private String uri;
+    private String nameFile;
+    private static final String CLEAR_LINE_BREAKS_REGEXP = "[\\n\\r]";
+    private static final String CUT_OBJECT_FROM_LINE_REGEXP = "\\{(.*?)}";
+    private static final String SEPARATOR_PARAMETER_VALUE = ":";
+    private static final String SEPARATOR_PARAMETERS = ",";
 
-    public TxtFileFilling(TypeFillingStrategy typeFillingStrategy, String uri) {
+    public TxtFileFilling(TypeFillingStrategy typeFillingStrategy, String nameFile) {
         this.typeFillingStrategy = typeFillingStrategy;
-        this.uri = uri;
+        this.nameFile = nameFile;
     }
 
     public TypeFillingStrategy getTypeFillingStrategy() {
@@ -28,33 +34,52 @@ public class TxtFileFilling {
         this.typeFillingStrategy = typeFillingStrategy;
     }
 
-    public String getUri() {
-        return uri;
+    public String getNameFile() {
+        return nameFile;
     }
 
-    public void setUri(String uri) {
-        this.uri = uri;
+    public void setNameFile(String nameFile) {
+        this.nameFile = nameFile;
     }
 
+    /**
+     * Парсинг .txt файла.
+     * Формат:
+     * {
+     * парам:значение,
+     * парам:значение,
+     * .....
+     * },
+     * {
+     * парам:значение,
+     * парам:значение,
+     * .....
+     * },
+     * ....
+     * Считывается полностью файл в строку. Удаляются символы переноса строки и и возрата каретки. Далее строка разделяется
+     * по {} определяю строку с параметрами для кажого объекта. Проходим по строке и собираем HashMap (ключ - параметр),
+     * передаем объекту стретегии для создания объекта.
+     */
     public void parsingFile() {
-        String text = null;
+        String fullFile = null;
         try {
-            text = new String(Files.readAllBytes(Paths.get(uri)))
-                    .replaceAll("[\\n\\r]", "");
-        } catch (IOException e) {
-            System.out.println("Error reading file: " + uri);;
-        }
-        Pattern pattern = Pattern.compile("\\{(.*?)\\}");
-        Matcher matcher = pattern.matcher(text);
-        List<String> lines = new ArrayList<>();
-        while (matcher.find()) {
-            lines.add(matcher.group(1));
-        }
-        if (lines.isEmpty()) {
+            fullFile = new String(Files.readAllBytes(Paths.get(getClass().getClassLoader().getResource(nameFile).toURI())))
+                    .replaceAll(CLEAR_LINE_BREAKS_REGEXP, "");
+        } catch (IOException | URISyntaxException e) {
+            System.out.println("Error reading file: " + nameFile);
             return;
         }
-        for (String line : lines) {
-            String[] split = line.split(",");
+        Pattern pattern = Pattern.compile(CUT_OBJECT_FROM_LINE_REGEXP);
+        Matcher matcher = pattern.matcher(fullFile);
+        List<String> lineForObjects = new ArrayList<>();
+        while (matcher.find()) {
+            lineForObjects.add(matcher.group(1));
+        }
+        if (lineForObjects.isEmpty()) {
+            return;
+        }
+        for (String line : lineForObjects) {
+            String[] split = line.split(SEPARATOR_PARAMETERS);
             Map<String, String> parameters = Stream.of(split)
                     .collect(Collectors.toMap(s1 -> customSplit(s1)[0], s2 -> customSplit(s2)[1]));
             typeFillingStrategy.filling(parameters);
@@ -62,8 +87,13 @@ public class TxtFileFilling {
 
     }
 
+    /**
+     * Чтобы избежать ошибки если не указано значение параметра, используем кастомный метод split()
+     *
+     * @param s - строка для разделения
+     */
     private String[] customSplit(String s) {
-        String[] split = s.split(":");
+        String[] split = s.split(SEPARATOR_PARAMETER_VALUE);
         if (split.length < 2) {
             return new String[]{split[0], ""};
         } else {

@@ -7,7 +7,7 @@ public class Person {
     private final int age;
     private final String surname;
 
-    private Person(PersonBuilder builder){
+    private Person(PersonBuilder builder) {
         this.gender = builder.gender;
         this.age = builder.age;
         this.surname = builder.surname;
@@ -52,28 +52,28 @@ public class Person {
         return result;
     }
 
-    public static class PersonBuilder{
+    public static class PersonBuilder {
         private Gender gender;
         private int age;
         private String surname;
 
 
-        public PersonBuilder setGender(Gender gender){
+        public PersonBuilder setGender(Gender gender) {
             this.gender = gender;
             return this;
         }
 
-        public PersonBuilder setAge(int age){
+        public PersonBuilder setAge(int age) {
             this.age = age;
             return this;
         }
 
-        public PersonBuilder setSurname(String surname){
+        public PersonBuilder setSurname(String surname) {
             this.surname = surname;
             return this;
         }
 
-        public Person build(){
+        public Person build() {
             return new Person(this);
         }
     }

@@ -5,12 +5,16 @@ import com.aston.project.model.entity.Person;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonStorage {
-    private final List<Person> people = new ArrayList<>();
-    public void add(Person person){
-            people.add(person);
+public class PersonStorage implements AbstractStorage<Person> {
+    private final List<Person> persons = new ArrayList<>();
+
+    @Override
+    public void add(Person model) {
+        persons.add(model);
     }
-    public List<Person> getPeople(){
-        return people;
+
+    @Override
+    public List<Person> getStorage() {
+        return persons;
     }
 }

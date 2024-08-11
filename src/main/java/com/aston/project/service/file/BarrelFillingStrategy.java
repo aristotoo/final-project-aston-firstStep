@@ -1,7 +1,7 @@
 package com.aston.project.service.file;
 
 import com.aston.project.model.entity.Barrel;
-import com.aston.project.service.file.validation.Validation;
+import com.aston.project.service.file.validation.BarrelValidation;
 import com.aston.project.storage.BarrelStorage;
 
 import java.util.Map;
@@ -16,7 +16,7 @@ public class BarrelFillingStrategy implements TypeFillingStrategy {
 
     @Override
     public void filling(Map<String, String> parameters) {
-        Optional<Barrel> barrel = Validation.barrelValidation(parameters);
+        Optional<Barrel> barrel = BarrelValidation.validation(parameters);
         barrel.ifPresent(barrelStorage::add);
     }
 }
