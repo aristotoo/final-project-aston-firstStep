@@ -15,9 +15,6 @@ import static com.aston.project.randomdatagenerator.RandomDataSource.*;
  */
 public class GenerateRandomAnimal implements FillWithRandomData<Animal> {
     public static Random random = new Random();
-    public static int colors = random.nextInt(COLORS.length - 1);
-    public static int animals = random.nextInt(ANIMALS.length - 1);
-
     public Animal generateAnimal(){
         return (Animal) new Animal.AnimalBuilder().
                 setSpecies(generateRandomSpecies()).
@@ -28,11 +25,13 @@ public class GenerateRandomAnimal implements FillWithRandomData<Animal> {
     }
     //создается список видов животных на выбор
     private String generateRandomSpecies(){
-        return RandomDataSource.ANIMALS[animals];
+        int i = random.nextInt(ANIMALS.length - 1);
+        return RandomDataSource.ANIMALS[i];
     }
     //создается список цвета глаз, который может быть у животного
     private String generateRandomColor(){
-        return COLORS[colors];
+        int i = random.nextInt(COLORS.length - 1);
+        return RandomDataSource.COLORS[i];
     }
     //создается случайная булевая переменная, которая указывает, есть ли у животного шерсть
     private boolean generateRandomFur(){
