@@ -4,7 +4,6 @@ import com.aston.project.Animal;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import static com.aston.project.randomdatagenerator.RandomDataSource.*;
 
@@ -14,9 +13,8 @@ import static com.aston.project.randomdatagenerator.RandomDataSource.*;
 в статическом методе generateAnimal данные передаются в сеттер-методы AnimalBuilder. В завершении вызывается метод build для генерации объекта.
  */
 public class GenerateRandomAnimal implements FillWithRandomData<Animal> {
-    public static Random random = new Random();
     public Animal generateAnimal(){
-        return (Animal) new Animal.AnimalBuilder().
+        return new Animal.AnimalBuilder().
                 setSpecies(generateRandomSpecies()).
                 setEyeColor(generateRandomColor()).
                 setHasFur(generateRandomFur())
@@ -25,13 +23,13 @@ public class GenerateRandomAnimal implements FillWithRandomData<Animal> {
     }
     //создается список видов животных на выбор
     private String generateRandomSpecies(){
-        int i = random.nextInt(ANIMALS.length - 1);
-        return RandomDataSource.ANIMALS[i];
+        int randomNumToGetRandomAnimal = random.nextInt(ANIMALS.length - 1);
+        return RandomDataSource.ANIMALS[randomNumToGetRandomAnimal];
     }
     //создается список цвета глаз, который может быть у животного
     private String generateRandomColor(){
-        int i = random.nextInt(COLORS.length - 1);
-        return RandomDataSource.COLORS[i];
+        int randomNumToGetRandomColor = random.nextInt(COLORS.length - 1);
+        return RandomDataSource.COLORS[randomNumToGetRandomColor];
     }
     //создается случайная булевая переменная, которая указывает, есть ли у животного шерсть
     private boolean generateRandomFur(){
@@ -39,7 +37,7 @@ public class GenerateRandomAnimal implements FillWithRandomData<Animal> {
     }
 
     @Override
-    public List<Animal> fillWithRandomData(ArrayList<Animal> animals, int size) {
+    public List<Animal> fillWithRandomData(List<Animal> animals, int size) {
             animals = new ArrayList<Animal>(size);
             for(int i = 0; i < size; i++) {
                 animals.add(generateAnimal());

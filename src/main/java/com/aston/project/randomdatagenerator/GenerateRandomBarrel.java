@@ -2,6 +2,8 @@ package com.aston.project.randomdatagenerator;
 
 import com.aston.project.Barrel;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,20 +14,20 @@ import java.util.Random;
 в статическом методе generateBarrel данные передаются в сеттер-методы BarrelBuilder. В завершении вызывается метод build для генерации объекта.
 */
 public class GenerateRandomBarrel implements FillWithRandomData<Barrel> {
-    public static Random random = new Random();
-
+    public static int radius = new Random().nextInt(10);
+    public static int height = new Random().nextInt(15);
     public Barrel generateBarrel(){
-        return (Barrel) new Barrel.BarrelBuilder().
+        return new Barrel.BarrelBuilder().
                 setVolume(generateRandomDouble()).
                 setStoredMaterial(generateRandomStoredMaterial()).
                 setMaterial(generateRandomMaterial()).
                 build();
 
     }
-
-    //создается случайное число типа double для поля Volume
+    //создается случайное число типа double для поля Volume, затем округляется число до 3 цифр после запятой
     private double generateRandomDouble(){
-        return random.nextDouble();
+        double barrelVolume = Math.PI * Math.pow(radius, 2) * height;
+        return (BigDecimal.valueOf(barrelVolume).setScale(3, RoundingMode.HALF_UP)).doubleValue();
     }
     //создается список материалов, и которых может быть сделана бочка
     private String generateRandomMaterial(){
@@ -34,12 +36,11 @@ public class GenerateRandomBarrel implements FillWithRandomData<Barrel> {
     }
     //создается список материалов, который может храниться в бочке
     private String generateRandomStoredMaterial(){
-        int i = random.nextInt(RandomDataSource.STOREDMATERIALS.length - 1);
-        return RandomDataSource.STOREDMATERIALS[i];
+        int i = random.nextInt(RandomDataSource.STOREDMATERIAL.length - 1);
+        return RandomDataSource.STOREDMATERIAL[i];
     }
-
     @Override
-    public List<Barrel> fillWithRandomData(ArrayList<Barrel> barrels, int size) {
+    public List<Barrel> fillWithRandomData(List<Barrel> barrels, int size) {
         barrels = new ArrayList<Barrel>(size);
         for(int i = 0; i < size; i++) {
             barrels.add(generateBarrel());
