@@ -72,7 +72,7 @@ public class Animal {
             return this;
         }
 
-        public Animal builder(){
+        public Animal build(){
             return new Animal(this);
         }
     }
