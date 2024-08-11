@@ -1,6 +1,7 @@
 package com.aston.project.model.searches;
 
 import java.util.Comparator;
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -16,22 +17,22 @@ public class BinarySearch {
      * @param key искомый элемент
      * @param getter функция для получения значения из элемента массива, которое будет сравниваться с искомым элементом
      * @param comparator компаратор для сравнения значений, полученных с помощью функции getter
-     * @return найденный элемент массива, если он найден; null, если элемент не найден
+     * @return Optional, содержащий найденный элемент массива, если он найден; Optional.empty(), если элемент не найден
      */
-    public <T, S> T search(T[] arr, S key, Function<T, S> getter, Comparator<S> comparator) {
+    public <T, S> Optional<T> search(T[] arr, S key, Function<T, S> getter, Comparator<S> comparator) {
         int low = 0;
         int high = arr.length - 1;
         while (low <= high) {
             int mid = (low + high) / 2;
             int resultOfCompare = comparator.compare(getter.apply(arr[mid]), key);
             if (resultOfCompare == 0) {
-                return arr[mid];
+                return Optional.of(arr[mid]);
             } else if (resultOfCompare < 0) {
                 low = mid + 1;
             } else {
                 high = mid - 1;
             }
         }
-        return null;
+        return Optional.empty();
     }
 }
