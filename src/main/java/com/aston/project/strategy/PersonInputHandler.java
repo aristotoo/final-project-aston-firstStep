@@ -21,15 +21,20 @@ public class PersonInputHandler implements InputHandler<Person> {
         }
 
         System.out.print("Введите возраст: ");
-        int age = Integer.parseInt(scanner.nextLine());
+        int age;
+        try {
+            age = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Некорректный возраст. Введите число.");
+        }
         if (age < 0 || age > 120) {
             throw new IllegalArgumentException("Некорректный возраст. Введите значение от 0 до 120.");
         }
 
         System.out.print("Введите фамилию: ");
         String surname = scanner.nextLine();
-        if (surname.isEmpty()) {
-            throw new IllegalArgumentException("Фамилия не может быть пустой.");
+        if (!surname.matches("[a-zA-Zа-яА-Я]+")) {
+            throw new IllegalArgumentException("Фамилия может содержать только буквы.");
         }
 
         return new Person.PersonBuilder()
