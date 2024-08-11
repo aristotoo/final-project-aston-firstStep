@@ -1,30 +1,36 @@
 package com.aston.project.model.searches;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * Класс для выполнения бинарного поиска в отсортированном массиве.
+ * Утильный класс для выполнения бинарного поиска в отсортированном списке.
  */
-public class BinarySearch {
+public final class BinarySearch {
+
+    private BinarySearch() {
+        throw new UnsupportedOperationException("Utility class");
+    }
+
     /**
-     * Выполняет бинарный поиск элемента в отсортированном массиве.
+     * Выполняет бинарный поиск элемента в отсортированном списке.
      *
-     * @param <T> тип элементов в массиве
+     * @param <T> тип элементов в списке
      * @param <S> тип искомого элемента, должен реализовывать Comparable
-     * @param arr массив, в котором выполняется поиск
+     * @param list список, в котором выполняется поиск
      * @param key искомый элемент
-     * @param getter функция для получения значения из элемента массива, которое будет сравниваться с искомым элементом
-     * @return Optional, содержащий найденный элемент массива, если он найден; Optional.empty(), если элемент не найден
+     * @param getter функция для получения значения из элемента списка, которое будет сравниваться с искомым элементом
+     * @return Optional, содержащий найденный элемент списка, если он найден; Optional.empty(), если элемент не найден
      */
-    public <T, S extends Comparable<? super S>> Optional<T> search(T[] arr, S key, Function<T, S> getter) {
+    public static <T, S extends Comparable<? super S>> Optional<T> search(List<T> list, S key, Function<T, S> getter) {
         int low = 0;
-        int high = arr.length - 1;
+        int high = list.size() - 1;
         while (low <= high) {
             int mid = (low + high) / 2;
-            int resultOfCompare = getter.apply(arr[mid]).compareTo(key);;
+            int resultOfCompare = getter.apply(list.get(mid)).compareTo(key);;
             if (resultOfCompare == 0) {
-                return Optional.of(arr[mid]);
+                return Optional.of(list.get(mid));
             } else if (resultOfCompare < 0) {
                 low = mid + 1;
             } else {
