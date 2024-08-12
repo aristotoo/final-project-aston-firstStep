@@ -27,7 +27,7 @@ public class GenerateRandomBarrel implements FillWithRandomData<Barrel> {
     //создается случайное число типа double для поля Volume, затем округляется число до 3 цифр после запятой
     private double generateRandomDouble(){
         double barrelVolume = Math.PI * Math.pow(radius, 2) * height;
-        return (BigDecimal.valueOf(barrelVolume).setScale(3, RoundingMode.HALF_UP)).doubleValue();
+        return Math.ceil(barrelVolume);
     }
     //создается список материалов, и которых может быть сделана бочка
     private String generateRandomMaterial(){
