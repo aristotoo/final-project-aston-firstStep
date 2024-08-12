@@ -1,4 +1,4 @@
-package com.aston.project.service.comparators;
+package com.aston.project.model.comparators;
 
 import com.aston.project.model.entity.Barrel;
 
