@@ -12,22 +12,22 @@ import static com.aston.project.randomdatagenerator.CollectionFillStrategy.rando
 в статическом методе generateBarrel данные передаются в сеттер-методы BarrelBuilder. В завершении вызывается метод build для генерации объекта.
 */
 public class RandomBarrelGenerator implements EntityGenerator<Barrel> {
-    public static int radius = new Random().nextInt(10);
-    public static int height = new Random().nextInt(15);
+    private final static int RADIUS = random.nextInt(10);
+    private final static int HEIGHT = random.nextInt(15);
     //создается случайное число типа double для поля Volume, затем округляется число до 3 цифр после запятой
     private double generateRandomDouble(){
-        double barrelVolume = Math.PI * Math.pow(radius, 2) * height;
+        double barrelVolume = Math.PI * Math.pow(RADIUS, 2) * HEIGHT;
         return Math.ceil(barrelVolume);
     }
     //создается список материалов, и которых может быть сделана бочка
     private String generateRandomMaterial(){
-        int i = random.nextInt(RandomDataSource.MATERIALS.length - 1);
-        return RandomDataSource.MATERIALS[i];
+        int randomNumToGetMaterial = random.nextInt(RandomDataSource.MATERIALS.length - 1);
+        return RandomDataSource.MATERIALS[randomNumToGetMaterial];
     }
     //создается список материалов, который может храниться в бочке
     private String generateRandomStoredMaterial(){
-        int i = random.nextInt(RandomDataSource.STOREDMATERIAL.length - 1);
-        return RandomDataSource.STOREDMATERIAL[i];
+        int randomNumToGetMaterial = random.nextInt(RandomDataSource.STOREDMATERIAL.length - 1);
+        return RandomDataSource.STOREDMATERIAL[randomNumToGetMaterial];
     }
     @Override
     public Barrel generate(){

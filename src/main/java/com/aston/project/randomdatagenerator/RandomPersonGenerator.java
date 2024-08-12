@@ -10,7 +10,7 @@ import static com.aston.project.randomdatagenerator.CollectionFillStrategy.rando
 в статическом методе generatePerson данные передаются в сеттер-методы PersonBuilder. В завершении вызывается метод build для генерации объекта.
  */
 public class RandomPersonGenerator implements EntityGenerator<Person> {
-    public static int maxAge = 120;
+    private final static int AGE = 120;
     //создается два гендера на выбор - мужской или женский
     private String generateRandomGender(){
         int randomNumToGetRandomGender = random.nextInt(RandomDataSource.GENDERS.length);
@@ -18,7 +18,7 @@ public class RandomPersonGenerator implements EntityGenerator<Person> {
     }
     //создается случайное число для указания возраста (максимум 119 лет)
     private int generateRandomAge(){
-        return random.nextInt(maxAge);
+        return random.nextInt(AGE);
     }
     //создается список фамилий на выбор
     private String generateRandomSurnames(){
