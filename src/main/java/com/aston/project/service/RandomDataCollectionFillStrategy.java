@@ -13,7 +13,9 @@ public class RandomDataCollectionFillStrategy<T> implements CollectionFillStrate
         @Override
         public List<T> fillCollection(int length){
             List<T> collection = new ArrayList<>(length);
-            collection.add(entityGenerator.generate());
+            for (int i = 0; i < length; i++) {
+                collection.add(entityGenerator.generate());
+            }
             return collection;
         }
     }
