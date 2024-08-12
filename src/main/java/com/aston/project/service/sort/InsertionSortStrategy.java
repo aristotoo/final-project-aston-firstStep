@@ -6,7 +6,8 @@ import java.util.List;
 public class InsertionSortStrategy<T> implements SortingStrategy<T> {
     /**
      * Сортировка вставками.
-     * @param input - входной список для сортировки
+     *
+     * @param input      - входной список для сортировки
      * @param comparator - компоратор по типу сравнения сущностей
      */
     @Override
