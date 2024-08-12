@@ -2,7 +2,7 @@ package com.aston.project.model.entity;
 
 import java.util.Objects;
 
-public class Animal {
+public class Animal implements Comparable<Animal> {
     private final String species;
     private final String eyeColor;
     private final boolean hasFur;
@@ -11,6 +11,11 @@ public class Animal {
         this.species = builder.species;
         this.eyeColor = builder.eyeColor;
         this.hasFur = builder.hasFur;
+    }
+
+    @Override
+    public int compareTo(Animal o) {
+        return this.getSpecies().compareTo(o.getSpecies());
     }
 
     public String getSpecies() {
