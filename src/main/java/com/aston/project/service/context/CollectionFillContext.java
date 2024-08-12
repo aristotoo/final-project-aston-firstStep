@@ -8,11 +8,11 @@ public class CollectionFillContext<T> {
 
     private final CollectionFillStrategy<T> fillStrategy;
 
-    public CollectionFillContext(CollectionFillStrategy<T> fillStrategy){
+    public CollectionFillContext(CollectionFillStrategy<T> fillStrategy) {
         this.fillStrategy = fillStrategy;
     }
 
-    public List<T> fill(int length){
+    public List<T> fill(int length) {
         return fillStrategy.fillCollection(length);
     }
 }

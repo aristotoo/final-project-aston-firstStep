@@ -10,6 +10,6 @@ public class VolumeComparator implements NumericComparator<Barrel> {
 
     @Override
     public int compare(Barrel barrel, Barrel otherBarrel) {
-        return Double.compare(barrel.getVolume(),otherBarrel.getVolume());
+        return Double.compare(barrel.getVolume(), otherBarrel.getVolume());
     }
 }

@@ -10,6 +10,6 @@ public class AgeComparator implements NumericComparator<Person> {
 
     @Override
     public int compare(Person firstPerson, Person secondPerson) {
-        return Integer.compare(firstPerson.getAge(),secondPerson.getAge());
+        return Integer.compare(firstPerson.getAge(), secondPerson.getAge());
     }
 }
