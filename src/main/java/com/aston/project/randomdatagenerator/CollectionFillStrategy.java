@@ -5,7 +5,7 @@ import java.util.Random;
 
 //интерфейс принимает в качестве параметров пустой список пока неизвестных объектов и длину этого списка
 //возвращается список указанной длины
-public interface FillWithRandomData<T> {
+public interface CollectionFillStrategy<T>{
     Random random = new Random();
-    List<T> fillWithRandomData(List<T> ts, int size);
+    List<T> fillWithRandomData(List<T> collection, int size);
 }
