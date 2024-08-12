@@ -1,9 +1,10 @@
-package com.aston.project.randomdatagenerator;
+package com.aston.project.service.generator;
 
-import com.aston.project.Animal;
+import com.aston.project.model.entity.Animal;
+import com.aston.project.service.utils.generatorUtil.RandomDataSource;
 
-import static com.aston.project.randomdatagenerator.CollectionFillStrategy.random;
-import static com.aston.project.randomdatagenerator.RandomDataSource.*;
+import static com.aston.project.service.utils.generatorUtil.RandomDataSource.ANIMALS;
+import static com.aston.project.service.utils.generatorUtil.RandomDataSource.COLORS;
 
 /*
 Генератор создания случайного объекта типа Animal
@@ -12,6 +13,15 @@ import static com.aston.project.randomdatagenerator.RandomDataSource.*;
  */
 public class RandomAnimalGenerator implements EntityGenerator<Animal>{
 
+    @Override
+    public Animal generate(){
+        return new Animal.AnimalBuilder().
+                setSpecies(generateRandomSpecies()).
+                setEyeColor(generateRandomColor()).
+                setHasFur(generateRandomFur())
+                .build();
+
+    }
     //создается список видов животных на выбор
     private String generateRandomSpecies(){
         int randomNumToGetRandomAnimal = random.nextInt(ANIMALS.length - 1);
@@ -23,18 +33,9 @@ public class RandomAnimalGenerator implements EntityGenerator<Animal>{
         return RandomDataSource.COLORS[randomNumToGetRandomColor];
     }
     //создается случайная булевая переменная, которая указывает, есть ли у животного шерсть
+
     private boolean generateRandomFur(){
         return random.nextBoolean();
     }
-
     //в переопределенном методе интерфейса создается новый объект указанного типа
-    @Override
-    public Animal generate(){
-        return new Animal.AnimalBuilder().
-                setSpecies(generateRandomSpecies()).
-                setEyeColor(generateRandomColor()).
-                setHasFur(generateRandomFur())
-                .build();
-
-    }
 }

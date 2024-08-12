@@ -1,6 +1,6 @@
 package com.aston.project.service.sort;
 
-import com.aston.project.service.comparators.NumericComparator;
+import com.aston.project.model.comparators.NumericComparator;
 
 import java.util.Comparator;
 import java.util.List;

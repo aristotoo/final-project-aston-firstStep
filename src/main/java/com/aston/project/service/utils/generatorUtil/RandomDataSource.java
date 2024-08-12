@@ -1,4 +1,4 @@
-package com.aston.project.randomdatagenerator;
+package com.aston.project.service.utils.generatorUtil;
 
 //класс utility с данными для полей в виде массивов
 public final class RandomDataSource {

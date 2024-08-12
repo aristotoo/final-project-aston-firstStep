@@ -1,4 +1,4 @@
-package com.aston.project.input;
+package com.aston.project.service.handler;
 
 import com.aston.project.model.entity.Animal;
 

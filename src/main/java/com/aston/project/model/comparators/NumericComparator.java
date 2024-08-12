@@ -1,4 +1,4 @@
-package com.aston.project.service.comparators;
+package com.aston.project.model.comparators;
 
 import java.util.Comparator;
 
