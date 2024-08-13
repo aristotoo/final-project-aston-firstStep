@@ -2,7 +2,7 @@ package com.aston.project.model.entity;
 
 import java.util.Objects;
 
-public class Person {
+public class Person implements Comparable<Person> {
     private final String gender;
     private final int age;
     private final String surname;
@@ -11,6 +11,11 @@ public class Person {
         this.gender = builder.gender;
         this.age = builder.age;
         this.surname = builder.surname;
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        return this.getSurname().compareTo(o.getSurname());
     }
 
     public String getGender() {

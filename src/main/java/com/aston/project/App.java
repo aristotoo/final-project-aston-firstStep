@@ -1,7 +1,5 @@
 package com.aston.project;
 
-import com.aston.project.controller.Controller;
-
 import java.io.IOException;
 
 /**
@@ -9,6 +7,6 @@ import java.io.IOException;
  */
 public class App {
     public static void main(String[] args) throws IOException {
-        new Controller().start();
+        ApplicationRunner.run();
     }
 }

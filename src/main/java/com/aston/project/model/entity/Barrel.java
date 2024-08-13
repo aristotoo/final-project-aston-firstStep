@@ -2,7 +2,7 @@ package com.aston.project.model.entity;
 
 import java.util.Objects;
 
-public class Barrel {
+public class Barrel implements Comparable<Barrel> {
     private final double volume;
     private final String storedMaterial;
     private final String material;
@@ -11,6 +11,11 @@ public class Barrel {
         this.volume = builder.volume;
         this.storedMaterial = builder.storedMaterial;
         this.material = builder.material;
+    }
+
+    @Override
+    public int compareTo(Barrel o) {
+        return this.getMaterial().compareTo(o.getMaterial());
     }
 
     public double getVolume() {
