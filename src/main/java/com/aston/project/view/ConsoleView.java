@@ -1,23 +1,12 @@
 package com.aston.project.view;
 
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Класс ConsoleView представляет собой консольный интерфейс для взаимодействия с пользователем.
  * Он отвечает за отображение информации в консоли и чтение ввода пользователя.
  */
 public class ConsoleView {
-
-    private final Scanner scanner;
-
-    /**
-     * Конструктор класса ConsoleView.
-     * Инициализирует сканер для чтения ввода пользователя.
-     */
-    public ConsoleView() {
-        this.scanner = new Scanner(System.in);
-    }
 
     /**
      * Отображает приветственное сообщение и меню выбора способа заполнения массива.
@@ -168,10 +157,4 @@ public class ConsoleView {
         System.out.println("-----------------------------------------------------------");
     }
 
-    /**
-     * Закрывает сканер для чтения ввода пользователя.
-     */
-    public void close() {
-        scanner.close();
-    }
 }
