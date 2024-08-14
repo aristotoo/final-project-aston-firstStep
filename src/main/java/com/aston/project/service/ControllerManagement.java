@@ -5,18 +5,18 @@ import com.aston.project.model.Request;
 
 import java.util.List;
 
-public class ControllerManagement {
+public class ControllerManagement<T> {
     private final Request request;
     private final HandlerRequest handlerRequest;
-    private List collection;
-    private Controller controller;
+    private List<T> collection;
+    private Controller<T> controller;
 
     public ControllerManagement(Request request, HandlerRequest handlerRequest) {
         this.request = request;
         this.handlerRequest = handlerRequest;
     }
 
-    public List getCollection() {
+    public List<T> getCollection() {
         return collection;
     }
 

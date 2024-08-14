@@ -11,13 +11,13 @@ import java.util.Map;
 /**
  * Класс содержащий HashMap имя поля - компаратор
  */
-public class EntityComparators {
-    private Map<String, Comparator> entityComparators = new HashMap<>();
+public class ProviderEntityComparators {
+    private static Map<String, Comparator> entityComparators = new HashMap<>();
 
     /**
      * Заполняем коллекцию
      */
-    private void fillingComparators() {
+    static {
         entityComparators.put("surname", Comparator.comparing(Person::getSurname));
         entityComparators.put("age", Comparator.comparing(Person::getAge));
         entityComparators.put("male", Comparator.comparing(Person::getGender));

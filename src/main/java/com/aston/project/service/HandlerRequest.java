@@ -2,94 +2,64 @@ package com.aston.project.service;
 
 import com.aston.project.controller.Controller;
 import com.aston.project.model.Request;
-import com.aston.project.model.TypeFilling;
-import com.aston.project.model.comparators.EntityComparators;
-import com.aston.project.service.context.CollectionFillContext;
-import com.aston.project.service.context.SortContext;
+import com.aston.project.model.comparators.ProviderEntityComparators;
+import com.aston.project.service.utils.Utils;
 
 import java.util.Comparator;
+import java.util.Map;
 import java.util.Scanner;
 
-import static com.aston.project.service.utils.EntityFillStrategy.getAnimalFileStrategy;
-import static com.aston.project.service.utils.EntityFillStrategy.getAnimalManualStrategy;
-import static com.aston.project.service.utils.EntityFillStrategy.getAnimalRandomStrategy;
-import static com.aston.project.service.utils.EntityFillStrategy.getBarrelFileStrategy;
-import static com.aston.project.service.utils.EntityFillStrategy.getBarrelManualStrategy;
-import static com.aston.project.service.utils.EntityFillStrategy.getBarrelRandomStrategy;
-import static com.aston.project.service.utils.EntityFillStrategy.getPersonFileStrategy;
-import static com.aston.project.service.utils.EntityFillStrategy.getPersonManualStrategy;
-import static com.aston.project.service.utils.EntityFillStrategy.getPersonRandomStrategy;
+import static com.aston.project.service.utils.ProviderEntityControllers.getAnimalFileStrategy;
+import static com.aston.project.service.utils.ProviderEntityControllers.getAnimalManualStrategy;
+import static com.aston.project.service.utils.ProviderEntityControllers.getAnimalRandomStrategy;
+import static com.aston.project.service.utils.ProviderEntityControllers.getBarrelFileStrategy;
+import static com.aston.project.service.utils.ProviderEntityControllers.getBarrelManualStrategy;
+import static com.aston.project.service.utils.ProviderEntityControllers.getBarrelRandomStrategy;
+import static com.aston.project.service.utils.ProviderEntityControllers.getPersonFileStrategy;
+import static com.aston.project.service.utils.ProviderEntityControllers.getPersonManualStrategy;
+import static com.aston.project.service.utils.ProviderEntityControllers.getPersonRandomStrategy;
 
 /**
  * Обработчик ответов пользователя.
  */
 public class HandlerRequest {
     private Request request;
+    private final Scanner scanner = new Scanner(System.in);
+    private Map<String, Controller> controllers;
 
     public HandlerRequest(Request request) {
         this.request = request;
+
     }
 
     /**
      * Возвращаем контроллер созданный на основе выбора пользователя
      */
     public Controller createController() {
-        Scanner scanner = new Scanner(System.in);
-        if (request.getTypeFilling().equals(TypeFilling.FILE)) {
-            switch (request.getEntities()) {
-                case ANIMAL -> {
-                    return new Controller<>(new SortContext<>(),
-                            new CollectionFillContext<>(getAnimalFileStrategy(request.getFileName())));
-                }
-                case BARREL -> {
-                    return new Controller<>(new SortContext<>(),
-                            new CollectionFillContext<>(getBarrelFileStrategy(request.getFileName())));
-                }
-                case PERSON -> {
-                    return new Controller<>(new SortContext<>(),
-                            new CollectionFillContext<>(getPersonFileStrategy(request.getFileName())));
-                }
-            }
-        } else if (request.getTypeFilling().equals(TypeFilling.MANUAL)) {
-            switch (request.getEntities()) {
-                case ANIMAL -> {
-                    return new Controller<>(new SortContext<>(),
-                            new CollectionFillContext<>(getAnimalManualStrategy(scanner)));
-                }
-                case BARREL -> {
-                    return new Controller<>(new SortContext<>(),
-                            new CollectionFillContext<>(getBarrelManualStrategy(scanner)));
-                }
-                case PERSON -> {
-                    return new Controller<>(new SortContext<>(),
-                            new CollectionFillContext<>(getPersonManualStrategy(scanner)));
-                }
-            }
-        } else if (request.getTypeFilling().equals(TypeFilling.RANDOM)) {
-            switch (request.getEntities()) {
-                case ANIMAL -> {
-                    return new Controller<>(new SortContext<>(),
-                            new CollectionFillContext<>(getAnimalRandomStrategy()));
-                }
-                case BARREL -> {
-                    return new Controller<>(new SortContext<>(),
-                            new CollectionFillContext<>(getBarrelRandomStrategy()));
-                }
-                case PERSON -> {
-                    return new Controller<>(new SortContext<>(),
-                            new CollectionFillContext<>(getPersonRandomStrategy()));
-                }
-
-            }
-        }
-        return null;
+        registerControllers(request);
+        return controllers.get(request.getEntity() + "-" + request.getTypeFilling());
     }
 
     /**
      * Возвращаем сомпаратор по имени поля.
      */
     public Comparator getComparator() {
-        EntityComparators comparators = new EntityComparators();
+        ProviderEntityComparators comparators = new ProviderEntityComparators();
         return comparators.getEntityComparator(request.getParameterName());
+    }
+
+    /**
+     * Собираем коллекцию из ключевых слов (Сущность-Тип заполнения) - контроллеров
+     */
+    private void registerControllers(Request request) {
+        controllers = Map.of(Utils.ANIMAL_FILE_FILLING, getAnimalFileStrategy(request.getFileName()),
+                Utils.ANIMAL_MANUAL_FILLING, getAnimalManualStrategy(scanner),
+                Utils.ANIMAL_RANDOM_FILLING, getAnimalRandomStrategy(),
+                Utils.BARREL_FILE_FILLING, getBarrelFileStrategy(request.getFileName()),
+                Utils.BARREL_MANUAL_FILLING, getBarrelManualStrategy(scanner),
+                Utils.BARREL_RANDOM_FILLING, getBarrelRandomStrategy(),
+                Utils.PERSON_FILE_FILLING, getPersonFileStrategy(request.getFileName()),
+                Utils.PERSON_MANUAL_FILLING, getPersonManualStrategy(scanner),
+                Utils.PERSON_RANDOM_FILLING, getPersonRandomStrategy());
     }
 }
