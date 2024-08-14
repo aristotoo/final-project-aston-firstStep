@@ -12,15 +12,8 @@ public class ApplicationRunner {
     private static final List<Object> collection = new ArrayList<>(); // Заглушка
     private static final List<String> classes = new ArrayList<>(List.of("Animal", "Person", "Barrel")); // Заглушка
     private static boolean running = true;
+    public static int collectionLength;
 
-    /**
-     * Главный метод, запускающий приложение.
-     *
-     * @param args аргументы командной строки
-     */
-    public static void main(String[] args) {
-        startApplication(); // Для проверки работы
-    }
 
     /**
      * Запускает основной цикл приложения.
@@ -28,8 +21,7 @@ public class ApplicationRunner {
     private static void startApplication() {
         while (running) {
             view.displayWelcomeMessage();
-            int choice = getUserChoice(0, 3);
-            handleWelcomeChoice(choice);
+            handleWelcomeChoice();
         }
         scanner.close();
     }
@@ -57,193 +49,97 @@ public class ApplicationRunner {
     }
 
     /**
-     * Обрабатывает выбор пользователя на начальном экране.
-     *
-     * @param choice выбор пользователя
+     * Обрабатывает выбор пользователя на начальном экране,
+     * позволяя выбрать способ заполнения коллекции.
      */
-    private static void handleWelcomeChoice(int choice) {
+    private static void handleWelcomeChoice() {
+        final int FILE_FILLING = 1;
+        final int RANDOM_FILLING = 2;
+        final int MANUAL_FILLING = 3;
+        final int EXIT = 0;
+        int choice = getUserChoice(EXIT, MANUAL_FILLING);
         switch (choice) {
-            case 1:
-                handleFileFilling();
+            case FILE_FILLING:
+                //присваиваем стратегию FileCollectionFillStrategy
+                handleEntity();
                 break;
-            case 2:
-                handleRandomFilling();
+            case RANDOM_FILLING:
+                //присваиваем стратегию ManualCollectionFillStrategy
+                handleEntity();
                 break;
-            case 3:
-                handleManualFilling();
+            case MANUAL_FILLING:
+                //присваиваем стратегию RandomDataCollectionFillStrategy
+                handleEntity();
                 break;
-            case 0:
+            case EXIT:
                 running = false;
                 break;
         }
     }
 
     /**
-     * Обрабатывает заполнение коллекции данными из файла.
-     */
-    private static void handleFileFilling() {
-        view.displayFileFilling();
-        collection.clear();
-        boolean pass = false;
-        while (!pass) {
-            try {
-                String filePath = scanner.nextLine();
-                // Место для логики заполнения коллекции из файла
-                collection.add("someEntity1"); // Заглушка
-                collection.add("someEntity2");
-                collection.add("someEntity3");
-                pass = true;
-            } catch (Exception e) {
-                view.displayInputError(e.getMessage());
-            }
-        }
-        view.displayCompletionMessage();
-        handleCompletionAction();
-    }
-
-    /**
-     * Обрабатывает заполнение коллекции случайными данными.
-     */
-    private static void handleRandomFilling() {
-        view.displayEntitySelection(classes); // Заглушка внутри аргументов метода
-        int entityChoice = getUserChoice(0, classes.size());
-        handleRandomEntityChoice(entityChoice);
-    }
-
-    /**
-     * Обрабатывает выбор сущности для случайного заполнения коллекции.
+     * Обрабатывает выбор сущности для заполнения коллекции.
      *
-     * @param choice выбор пользователя
      */
-    private static void handleRandomEntityChoice(int choice) {
-        view.displayCollectionSizePrompt();
-        int size = getUserChoice(1, Integer.MAX_VALUE);
-        collection.clear();
+    private static void handleEntity() {
+        view.displayEntitySelection(classes); //classes коллекция заглушка с названиями классов
+        final int ANIMAL_FILLING = 1;
+        final int PERSON_FILLING = 2;
+        final int BARREL_FILLING = 3;
+        final int EXIT = 0;
+        int choice = getUserChoice(EXIT, BARREL_FILLING);
+        //присваиваем тип сущности для нашего варианта заполнения коллекции и устанавливаем размер коллекции
         switch (choice) {
-            case 1:
-                for (int i = 0; i < size; i++) { // Заглушка
-                    String name = "RandomAnimalName" + i;
-                    String age = String.valueOf(i);
-                    collection.add("Animal: " + name + ", Age: " + age);
-                }
+            case ANIMAL_FILLING:
+                //вставляем логику для Animal
+                handleCollectionSize();
+                //запускаем метод fillCollection с аргументом collectionLength
+                handleCompletionAction();
                 break;
-            case 2:
-                for (int i = 0; i < size; i++) { // Заглушка
-                    String name = "RandomPersonName" + i;
-                    String age = String.valueOf(i);
-                    collection.add("Person: " + name + ", Age: " + age);
-                }
+            case PERSON_FILLING:
+                //вставляем логику для Person
+                handleCollectionSize();
+                //запускаем метод fillCollection с аргументом collectionLength
+                handleCompletionAction();
                 break;
-            case 3:
-                for (int i = 0; i < size; i++) { // Заглушка
-                    String material = "RandomMaterial" + i;
-                    String volume = String.valueOf(i);
-                    collection.add("Barrel: " + material + ", Volume: " + volume);
-                }
+            case BARREL_FILLING:
+                //вставляем логику для Barrel
+                handleCollectionSize();
+                //запускаем метод fillCollection с аргументом collectionLength
+                handleCompletionAction();
                 break;
-        }
-        view.displayCompletionMessage();
-        handleCompletionAction();
-    }
-
-    /**
-     * Обрабатывает ручное заполнение коллекции.
-     */
-    private static void handleManualFilling() {
-        view.displayEntitySelection(classes);
-        int entityChoice = getUserChoice(0, classes.size());
-        handleEntityChoice(entityChoice);
-    }
-
-    /**
-     * Обрабатывает выбор сущности для ручного заполнения коллекции.
-     *
-     * @param choice выбор пользователя
-     */
-    private static void handleEntityChoice(int choice) {
-        switch (choice) {
-            case 1:
-                handleAnimalManualFilling();
-                break;
-            case 2:
-                handlePersonManualFilling();
-                break;
-            case 3:
-                handleBarrelManualFilling();
-                break;
-            case 0:
+            case EXIT:
                 running = false;
                 break;
         }
     }
 
-    /**
-     * Обрабатывает ручное заполнение коллекции сущностью Animal.
-     */
-    private static void handleAnimalManualFilling() {
+    private static void handleCollectionSize() {
         view.displayCollectionSizePrompt();
-        int size = getUserChoice(1, Integer.MAX_VALUE);
         collection.clear();
-        for (int i = 0; i < size; i++) {
-            view.displayManualFilling("name"); // Заглушка
-            String name = scanner.nextLine();
-            view.displayManualFilling("age");
-            String age = scanner.nextLine();
-            collection.add("Animal: " + name + ", Age: " + age);
-        }
+        final int MIN_COLLECTION_SIZE = 1;
+        final int MAX_COLLECTION_SIZE = Integer.MAX_VALUE;
+        collectionLength = getUserChoice(MIN_COLLECTION_SIZE, MAX_COLLECTION_SIZE);
         view.displayCompletionMessage();
-        handleCompletionAction();
-    }
-
-    /**
-     * Обрабатывает ручное заполнение коллекции сущностью Person.
-     */
-    private static void handlePersonManualFilling() {
-        view.displayCollectionSizePrompt();
-        int size = getUserChoice(1, Integer.MAX_VALUE);
-        collection.clear();
-        for (int i = 0; i < size; i++) {
-            view.displayManualFilling("name"); // Заглушка
-            String name = scanner.nextLine();
-            view.displayManualFilling("age");
-            String age = scanner.nextLine();
-            collection.add("Person: " + name + ", Age: " + age);
-        }
-        view.displayCompletionMessage();
-        handleCompletionAction();
-    }
-
-    /**
-     * Обрабатывает ручное заполнение коллекции сущностью Barrel.
-     */
-    private static void handleBarrelManualFilling() {
-        view.displayCollectionSizePrompt();
-        int size = getUserChoice(1, Integer.MAX_VALUE);
-        collection.clear();
-        for (int i = 0; i < size; i++) {
-            view.displayManualFilling("material"); // Заглушка
-            String material = scanner.nextLine();
-            view.displayManualFilling("volume");
-            String volume = scanner.nextLine();
-            collection.add("Barrel: " + material + ", Volume: " + volume);
-        }
-        view.displayCompletionMessage();
-        handleCompletionAction();
     }
 
     /**
      * Обрабатывает действия после завершения заполнения коллекции.
      */
     private static void handleCompletionAction() {
+        final int DISPLAY_COLLECTION = 1;
+        final int SORT_COLLECTION = 2;
+        final int BACK_TO_TOP = 3;
+        final int EXIT = 0;
         boolean pass = false;
         while (!pass) {
             view.displayCompletionActions();
-            int action = getUserChoice(0, 3);
+            int action = getUserChoice(EXIT, BACK_TO_TOP);
             switch (action) {
-                case 1:
+                case DISPLAY_COLLECTION:
                     view.displayUnsortedCollection(collection); // Заглушка в аргументах
                     break;
-                case 2:
+                case SORT_COLLECTION:
                     String[] fields = {"name", "age"}; // Пример полей для сортировки, заменить на реальные
                     view.displaySearchPrompt(fields);
                     int sortChoice = getUserChoice(1, fields.length);
@@ -252,10 +148,10 @@ public class ApplicationRunner {
                     pass = true;
                     handleSortedAction();
                     break;
-                case 3:
+                case BACK_TO_TOP:
                     pass = true;
                     break;
-                case 0:
+                case EXIT:
                     pass = true;
                     running = false;
                     break;
@@ -267,15 +163,19 @@ public class ApplicationRunner {
      * Обрабатывает действия после завершения сортировки коллекции.
      */
     private static void handleSortedAction() {
+        final int DISPLAY_COLLECTION = 1;
+        final int SEARCH_ELEMENT = 2;
+        final int BACK_TO_TOP = 3;
+        final int EXIT = 0;
         boolean pass = false;
         while (!pass) {
             view.displaySortedActions();
-            int action = getUserChoice(0, 3);
+            int action = getUserChoice(EXIT, BACK_TO_TOP);
             switch (action) {
-                case 1:
+                case DISPLAY_COLLECTION:
                     view.displaySortedCollection(collection);
                     break;
-                case 2:
+                case SEARCH_ELEMENT:
                     view.displaySearchValuePrompt();
                     String searchValue = scanner.nextLine();
                     // Логика для поиска элемента
@@ -286,10 +186,10 @@ public class ApplicationRunner {
                         view.displaySearchResult("Элемент найден: " + searchValue);
                     }
                     break;
-                case 3:
+                case BACK_TO_TOP:
                     pass = true;
                     break;
-                case 0:
+                case EXIT:
                     pass = true;
                     running = false;
                     break;
@@ -297,3 +197,4 @@ public class ApplicationRunner {
         }
     }
 }
+
