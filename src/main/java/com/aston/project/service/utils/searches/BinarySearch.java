@@ -1,13 +1,11 @@
 package com.aston.project.service.utils.searches;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-/**
- * Утильный класс для выполнения бинарного поиска в отсортированном списке.
- */
-public final class BinarySearch {
+public class BinarySearch {
 
     private BinarySearch() {
         throw new UnsupportedOperationException("Utility class");
@@ -16,10 +14,10 @@ public final class BinarySearch {
     /**
      * Выполняет бинарный поиск элемента в отсортированном списке.
      *
-     * @param <T>    тип элементов в списке
-     * @param <S>    тип искомого элемента, должен реализовывать Comparable
-     * @param list   список, в котором выполняется поиск
-     * @param key    искомый элемент
+     * @param <T> тип элементов в списке
+     * @param <S> тип искомого элемента, должен реализовывать Comparable
+     * @param list список, в котором выполняется поиск
+     * @param key искомый элемент
      * @param getter функция для получения значения из элемента списка, которое будет сравниваться с искомым элементом
      * @return Optional, содержащий найденный элемент списка, если он найден; Optional.empty(), если элемент не найден
      */
@@ -28,8 +26,7 @@ public final class BinarySearch {
         int high = list.size() - 1;
         while (low <= high) {
             int mid = (low + high) / 2;
-            int resultOfCompare = getter.apply(list.get(mid)).compareTo(key);
-            ;
+            int resultOfCompare = getter.apply(list.get(mid)).compareTo(key);;
             if (resultOfCompare == 0) {
                 return Optional.of(list.get(mid));
             } else if (resultOfCompare < 0) {
@@ -41,5 +38,3 @@ public final class BinarySearch {
         return Optional.empty();
     }
 }
-
-
