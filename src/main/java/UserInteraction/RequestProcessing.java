@@ -7,11 +7,9 @@ import java.util.Scanner;
 /**
 Класс, который будет обрабатывать запросы от пользователя, когда он начнет взаимодействие с консолью.
  */
-
 public class RequestProcessing {
     Scanner input = new Scanner(System.in);
     List<Integer> answers = new ArrayList<>();
-
     public List<Integer> collectData() {
         int fillArray = input.nextInt();
         switch (fillArray) {
@@ -52,7 +50,6 @@ public class RequestProcessing {
                 }
             }
         }
-
         return answers;
     }
 }
