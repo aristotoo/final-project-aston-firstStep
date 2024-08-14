@@ -3,8 +3,7 @@ package com.aston.project.view;
 import java.util.List;
 
 /**
- * Класс ConsoleView представляет собой консольный интерфейс для взаимодействия с пользователем.
- * Он отвечает за отображение информации в консоли и чтение ввода пользователя.
+ * Класс ConsoleView обеспечивает отображение информации в консоли для взаимодействия с пользователем.
  */
 public class ConsoleView {
 
@@ -24,11 +23,12 @@ public class ConsoleView {
     /**
      * Отображает меню выбора сущности для заполнения коллекции.
      */
-    public void displayEntitySelection() {
+    public <T> void displayEntitySelection(List<T> entityList) {
         System.out.println("Выберите сущность, которой необходимо заполнить коллекцию:");
-        System.out.println("1. Animal");
-        System.out.println("2. Person");
-        System.out.println("3. Barrel");
+        int i = 1;
+        for (T entity : entityList) {
+            System.out.println(i++ + ". " + entity);
+        }
         System.out.println("0. Выход из приложения");
         System.out.println("-----------------------------------------------------------");
     }
@@ -63,15 +63,10 @@ public class ConsoleView {
     }
 
     /**
-     * Отображает сообщение о завершении заполнения коллекции и меню выбора дальнейших действий.
+     * Отображает сообщение о завершении заполнения коллекции.
      */
     public void displayCompletionMessage() {
         System.out.println("Готово!");
-        System.out.println("Выберите дальнейшее действие:");
-        System.out.println("1. Посмотреть коллекцию");
-        System.out.println("2. Сортировать коллекцию");
-        System.out.println("0. Выход из приложения");
-        System.out.println("-----------------------------------------------------------");
     }
 
     /**
@@ -89,15 +84,10 @@ public class ConsoleView {
     }
 
     /**
-     * Отображает сообщение о завершении сортировки коллекции и меню выбора дальнейших действий.
+     * Отображает сообщение о завершении сортировки коллекции.
      */
     public void displaySortedMessage() {
         System.out.println("Коллекция отсортирована!");
-        System.out.println("Выберите дальнейшие действия:");
-        System.out.println("1. Посмотреть отсортированную коллекцию");
-        System.out.println("2. Найти элемент");
-        System.out.println("0. Выход из приложения");
-        System.out.println("-----------------------------------------------------------");
     }
 
     /**
@@ -121,12 +111,12 @@ public class ConsoleView {
     }
 
     /**
-     * Отображает содержимое коллекции.
+     * Отображает содержимое изначальной коллекции.
      *
      * @param <T>  тип элементов в коллекции
      * @param list список элементов для отображения
      */
-    public <T> void displayCollection(List<T> list) {
+    public <T> void displayUnsortedCollection(List<T> list) {
         System.out.println("***********************************************************");
         int i = 1;
         for (T element : list) {
@@ -136,13 +126,18 @@ public class ConsoleView {
     }
 
     /**
-     * Отображает меню выбора финального действия.
+     * Отображает содержимое отсортированной коллекции.
+     *
+     * @param <T>  тип элементов в коллекции
+     * @param list список элементов для отображения
      */
-    public void displayFinalActionPrompt() {
-        System.out.println("Выберите действие:");
-        System.out.println("1. Вернуться в начало");
-        System.out.println("0. Выход из приложения");
-        System.out.println("-----------------------------------------------------------");
+    public <T> void displaySortedCollection(List<T> list) {
+        System.out.println("***********************************************************");
+        int i = 1;
+        for (T element : list) {
+            System.out.println(i++ + ". " + element);
+        }
+        System.out.println("***********************************************************");
     }
 
     /**
@@ -157,4 +152,27 @@ public class ConsoleView {
         System.out.println("-----------------------------------------------------------");
     }
 
+    /**
+     * Отображает меню выбора дальнейших действий после завершения заполнения коллекции.
+     */
+    public void displayCompletionActions() {
+        System.out.println("Выберите дальнейшее действие:");
+        System.out.println("1. Посмотреть коллекцию");
+        System.out.println("2. Сортировать коллекцию");
+        System.out.println("3. Вернуться в начало");
+        System.out.println("0. Выход из приложения");
+        System.out.println("-----------------------------------------------------------");
+    }
+
+    /**
+     * Отображает меню выбора дальнейших действий после завершения сортировки коллекции.
+     */
+    public void displaySortedActions() {
+        System.out.println("Выберите дальнейшие действия:");
+        System.out.println("1. Посмотреть отсортированную коллекцию");
+        System.out.println("2. Найти элемент");
+        System.out.println("3. Вернуться в начало");
+        System.out.println("0. Выход из приложения");
+        System.out.println("-----------------------------------------------------------");
+    }
 }
