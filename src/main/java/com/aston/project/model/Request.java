@@ -9,6 +9,7 @@ public class Request {
     private String fileName;
     private int length;
     private String parameterName;
+    private String searchValue;
 
     public Request(RequestBuilder requestBuilder) {
         this.entity = requestBuilder.entity;
@@ -16,6 +17,7 @@ public class Request {
         this.fileName = requestBuilder.fileName;
         this.length = requestBuilder.length;
         this.parameterName = requestBuilder.parameterName;
+        this.searchValue = requestBuilder.searchValue;
     }
 
     public int getLength() {
@@ -58,13 +60,21 @@ public class Request {
         this.parameterName = parameterName;
     }
 
+    public String getSearchValue() {
+        return searchValue;
+    }
+
+    public void setSearchValue(String searchValue) {
+        this.searchValue = searchValue;
+    }
+
     public static class RequestBuilder {
         private String entity;
         private String typeFilling;
         private String fileName;
         private int length;
         private String parameterName;
-
+        private String searchValue;
         public RequestBuilder entity(String entity) {
             this.entity = entity;
             return this;
@@ -89,7 +99,10 @@ public class Request {
             this.parameterName = parameterName;
             return this;
         }
-
+        public RequestBuilder searchValue(String searchValue) {
+            this.searchValue = searchValue;
+            return this;
+        }
         public Request build() {
             return new Request(this);
         }

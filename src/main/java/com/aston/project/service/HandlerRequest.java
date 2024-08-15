@@ -62,4 +62,5 @@ public class HandlerRequest {
                 Utils.PERSON_MANUAL_FILLING, getPersonManualStrategy(scanner),
                 Utils.PERSON_RANDOM_FILLING, getPersonRandomStrategy());
     }
+
 }
