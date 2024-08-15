@@ -2,7 +2,7 @@ package com.aston.project;
 
 public class ApplicationRunner {
 
-    public static void run(){
+    public static void run() {
         //TODO
     }
 }

@@ -18,6 +18,4 @@ public class FileCollectionFillStrategy<T> implements CollectionFillStrategy<T> 
     public List<T> fillCollection(int length) {
         return fileParser.parseFile().stream().limit(length).collect(Collectors.toList());
     }
-
-
 }
