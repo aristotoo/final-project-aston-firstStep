@@ -3,7 +3,7 @@ package com.aston.project.service.sort;
 import java.util.Comparator;
 import java.util.List;
 
-public class InsertionSortStrategy<T> implements SortingStrategy<T> {
+public class InsertionSortStrategy implements SortingStrategy {
     /**
      * Сортировка вставками.
      *
@@ -11,7 +11,7 @@ public class InsertionSortStrategy<T> implements SortingStrategy<T> {
      * @param comparator - компоратор по типу сравнения сущностей
      */
     @Override
-    public void sort(List<T> input, Comparator<? super T> comparator) {
+    public <T> void sort(List<T> input, Comparator<? super T> comparator) {
         for (int i = 1; i < input.size(); i++) {
             T key = input.get(i);
             int j = i - 1;

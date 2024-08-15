@@ -5,7 +5,7 @@ import com.aston.project.model.comparators.NumericComparator;
 import java.util.Comparator;
 import java.util.List;
 
-public class EvenOddInsertionSortStrategy<T> implements SortingStrategy<T> {
+public class EvenOddInsertionSortStrategy implements SortingStrategy {
     /**
      * Переменная показывающая четность ключегого элемента сортировки
      */
@@ -24,7 +24,7 @@ public class EvenOddInsertionSortStrategy<T> implements SortingStrategy<T> {
      * @param comparator - тип компаратора для сравнения объектов.
      */
     @Override
-    public void sort(List<T> input, Comparator<? super T> comparator) {
+    public <T> void sort(List<T> input, Comparator<? super T> comparator) {
 
         if (comparator instanceof NumericComparator) {
             NumericComparator<T> numericComp = (NumericComparator<T>) comparator;

@@ -10,10 +10,10 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public class Controller<T> {
-    SortContext<T> sortContext;
+    SortContext sortContext;
     CollectionFillContext<T> fillContext;
 
-    public Controller(SortContext<T> sortContext, CollectionFillContext<T> fillContext) {
+    public Controller(SortContext sortContext, CollectionFillContext<T> fillContext) {
         this.sortContext = sortContext;
         this.fillContext = fillContext;
     }
@@ -26,7 +26,7 @@ public class Controller<T> {
         sortContext.sort(input, comparator);
     }
 
-    public <T, S extends Comparable<? super S>> Optional<T> search(List<T> sortedList, S key, Function<T, S> getters) {
+    public Optional<?> search(List<Object> sortedList, Object key, Function<Object, Comparable<Object>> getters) {
         return BinarySearch.search(sortedList, key, getters);
     }
 }

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RandomDataCollectionFillStrategy<T> implements CollectionFillStrategy<T> {
-    private final EntityGenerator<T> entityGenerator;
+    private EntityGenerator<T> entityGenerator;
 
-    public RandomDataCollectionFillStrategy(EntityGenerator<T> entityGenerator) {
+    public void setEntityGenerator (EntityGenerator<T> entityGenerator) {
         this.entityGenerator = entityGenerator;
     }
 

@@ -7,9 +7,9 @@ import java.util.List;
 
 public class ManualCollectionFillStrategy<T> implements CollectionFillStrategy<T> {
 
-    private final InputHandler<T> inputHandler;
+    private InputHandler<T> inputHandler;
 
-    public ManualCollectionFillStrategy(InputHandler<T> inputHandler) {
+    public void setInputHandler(InputHandler<T> inputHandler) {
         this.inputHandler = inputHandler;
     }
 
