@@ -4,6 +4,7 @@ import com.aston.project.service.sort.SortingStrategy;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 
 public class SortContext {
     private SortingStrategy sortingStrategy;
@@ -12,7 +13,7 @@ public class SortContext {
         this.sortingStrategy = sortingStrategy;
     }
 
-    public <T> void sort(List<T> list, Comparator<? super T> comparator) {
-        sortingStrategy.sort(list, comparator);
+    public <T> void sort(List<T> list, Function<Object, Comparable<Object>> getter) {
+        sortingStrategy.sort(list, getter);
     }
 }

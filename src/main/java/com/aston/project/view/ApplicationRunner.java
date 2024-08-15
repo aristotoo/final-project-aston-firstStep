@@ -26,10 +26,11 @@ public class ApplicationRunner {
     private static int entityId; //храним выбор сущности для дальнейшей логики
     private static int fieldChoice = 0; //храним выбор поля для бинарного поиска
 
+
     /**
      * Запускает основной цикл приложения.
      */
-    private static void startApplication() {
+    public static void startApplication() {
         while (running) {
             view.displayWelcomeMessage(); // отображаем приветственное сообщение с выбором действия
             handleWelcomeChoice();
@@ -189,9 +190,9 @@ public class ApplicationRunner {
                     sortContext.setSortingStrategy(sortingStrategy);
 
                     // сортируем коллекцию при помощи Comparator.comparing в который направлена функция
-                    sortContext.sort(collection, Comparator.comparing(Data.functions
+                    sortContext.sort(collection, Data.functions
                             .get(entityId) //получаем список полей для сущности которую выбрали ранее
-                            .get(fieldChoice - 1))); //применяем к объекту
+                            .get(fieldChoice - 1)); //применяем к объекту
 
                     view.displaySortedMessage();
                     pass = true;
