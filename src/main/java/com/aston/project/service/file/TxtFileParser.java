@@ -14,15 +14,15 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class TxtFileParser<T> implements FileParser<T> {
-    private final EntityParser<T> entityParser;
+public class TxtFileParser implements FileParser {
+    private final EntityParser entityParser;
     private final String nameFile;
     private static final String CLEAR_LINE_BREAKS_REGEXP = "[\\n\\r]";
     private static final String CUT_OBJECT_FROM_LINE_REGEXP = "\\{(.*?)}";
     private static final String SEPARATOR_PARAMETER_VALUE = ":";
     private static final String SEPARATOR_PARAMETERS = ",";
 
-    public TxtFileParser(EntityParser<T> entityParser, String nameFile) {
+    public TxtFileParser(EntityParser entityParser, String nameFile) {
         this.entityParser = entityParser;
         this.nameFile = nameFile;
     }
@@ -46,13 +46,13 @@ public class TxtFileParser<T> implements FileParser<T> {
      * Каждую строку преобразуем в HashMap имя параметра - значение. И формируем объект entity с помощью EntityParser.
      */
     @Override
-    public List<T> parseFile() {
+    public  List<Object> parseFile() {
         String fullFile = readFileToString();
         List<String> separatedStringToObj = separateStringToObjectStrings(fullFile);
         if (separatedStringToObj.isEmpty()) {
             return new ArrayList<>();
         }
-        List<T> parsedEntity = new ArrayList<>();
+        List<Object> parsedEntity = new ArrayList<>();
         for (String line : separatedStringToObj) {
             String[] split = line.split(SEPARATOR_PARAMETERS);
             Map<String, String> parameters = Stream.of(split)
@@ -80,7 +80,7 @@ public class TxtFileParser<T> implements FileParser<T> {
      * Считывает весь в файл в строку.
      */
     private String readFileToString() {
-        byte[] fileContent = null;
+        byte[] fileContent;
         try {
             Path path = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource(nameFile)).toURI());
             fileContent = Files.readAllBytes(path);

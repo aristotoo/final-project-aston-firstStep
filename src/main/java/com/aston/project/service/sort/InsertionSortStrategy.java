@@ -15,7 +15,7 @@ public class InsertionSortStrategy implements SortingStrategy {
         for (int i = 1; i < input.size(); i++) {
             T key = input.get(i);
             int j = i - 1;
-            while (j >= 0 && getter.apply(input.get(j)).compareTo(key) > 0) {
+            while (j >= 0 && getter.apply(input.get(j)).compareTo(getter.apply(key)) > 0) {
                 input.set(j + 1, input.get(j));
                 j--;
             }

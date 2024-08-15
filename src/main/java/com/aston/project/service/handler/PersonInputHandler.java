@@ -4,7 +4,7 @@ import com.aston.project.model.entity.Person;
 
 import java.util.Scanner;
 
-public class PersonInputHandler implements InputHandler<Person> {
+public class PersonInputHandler implements InputHandler {
 
     private final Scanner scanner;
 
@@ -12,6 +12,7 @@ public class PersonInputHandler implements InputHandler<Person> {
         this.scanner = scanner;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Person handleInput() {
         System.out.print("Введите пол (Male/Female): ");

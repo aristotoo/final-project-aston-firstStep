@@ -4,7 +4,7 @@ import com.aston.project.model.entity.Barrel;
 
 import java.util.Scanner;
 
-public class BarrelInputHandler implements InputHandler<Barrel> {
+public class BarrelInputHandler implements InputHandler {
 
     private final Scanner scanner;
 
@@ -12,6 +12,7 @@ public class BarrelInputHandler implements InputHandler<Barrel> {
         this.scanner = scanner;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Barrel handleInput() {
         System.out.print("Введите объем: ");

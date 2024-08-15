@@ -101,9 +101,9 @@ public final class Data {
      */
     private static Map<Integer, FileParser> initializeFileParsers() {
         Map<Integer, FileParser> parsers = new LinkedHashMap<>();
-        parsers.put(1, new TxtFileParser<>(new AnimalParser(), "animals.txt"));
-        parsers.put(2, new TxtFileParser<>(new BarrelParser(), "barrel.txt"));
-        parsers.put(3, new TxtFileParser<>(new PersonParser(), "person.txt"));
+        parsers.put(1, new TxtFileParser(new AnimalParser(), "animals.txt"));
+        parsers.put(2, new TxtFileParser(new BarrelParser(), "barrel.txt"));
+        parsers.put(3, new TxtFileParser(new PersonParser(), "person.txt"));
         return parsers;
     }
 
@@ -127,9 +127,9 @@ public final class Data {
      */
     private static Map<Integer, CollectionFillStrategy> initializeCollectionFillStrategies() {
         Map<Integer, CollectionFillStrategy> strategies = new LinkedHashMap<>();
-        strategies.put(1, new FileCollectionFillStrategy<>());
-        strategies.put(2, new RandomDataCollectionFillStrategy<>());
-        strategies.put(3, new ManualCollectionFillStrategy<>());
+        strategies.put(1, new FileCollectionFillStrategy());
+        strategies.put(2, new RandomDataCollectionFillStrategy());
+        strategies.put(3, new ManualCollectionFillStrategy());
         return strategies;
     }
 

@@ -5,16 +5,16 @@ import com.aston.project.service.generator.EntityGenerator;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RandomDataCollectionFillStrategy<T> implements CollectionFillStrategy<T> {
-    private EntityGenerator<T> entityGenerator;
+public class RandomDataCollectionFillStrategy implements CollectionFillStrategy {
+    private EntityGenerator entityGenerator;
 
-    public void setEntityGenerator (EntityGenerator<T> entityGenerator) {
+    public void setEntityGenerator (EntityGenerator entityGenerator) {
         this.entityGenerator = entityGenerator;
     }
 
     @Override
-    public List<T> fillCollection(int length) {
-        List<T> collection = new ArrayList<>(length);
+    public List<Object> fillCollection(int length) {
+        List<Object> collection = new ArrayList<>(length);
         for (int i = 0; i < length; i++) {
             collection.add(entityGenerator.generate());
         }

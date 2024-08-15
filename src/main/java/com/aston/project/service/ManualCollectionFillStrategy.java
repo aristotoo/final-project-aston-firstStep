@@ -5,17 +5,17 @@ import com.aston.project.service.handler.InputHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManualCollectionFillStrategy<T> implements CollectionFillStrategy<T> {
+public class ManualCollectionFillStrategy implements CollectionFillStrategy {
 
-    private InputHandler<T> inputHandler;
+    private InputHandler inputHandler;
 
-    public void setInputHandler(InputHandler<T> inputHandler) {
+    public void setInputHandler(InputHandler inputHandler) {
         this.inputHandler = inputHandler;
     }
 
     @Override
-    public List<T> fillCollection(int length) {
-        List<T> collection = new ArrayList<>(length);
+    public List<Object> fillCollection(int length) {
+        List<Object> collection = new ArrayList<>(length);
 
         for (int i = 0; i < length; i++) {
             while (true) {

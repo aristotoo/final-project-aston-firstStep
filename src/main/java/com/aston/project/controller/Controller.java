@@ -8,20 +8,20 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class Controller<T> {
+public class Controller {
     SortContext sortContext;
-    CollectionFillContext<T> fillContext;
+    CollectionFillContext fillContext;
 
-    public Controller(SortContext sortContext, CollectionFillContext<T> fillContext) {
+    public Controller(SortContext sortContext, CollectionFillContext fillContext) {
         this.sortContext = sortContext;
         this.fillContext = fillContext;
     }
 
-    public List<T> fillCollection(int length) {
+    public List<Object> fillCollection(int length) {
         return fillContext.fill(length);
     }
 
-    public void sortCollection(List<T> input, Function<Object, Comparable<Object>> getter) {
+    public <T> void sortCollection(List<T> input, Function<Object, Comparable<Object>> getter) {
         sortContext.sort(input, getter);
     }
 

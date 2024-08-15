@@ -6,16 +6,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class FileCollectionFillStrategy<T> implements CollectionFillStrategy<T> {
+public class FileCollectionFillStrategy implements CollectionFillStrategy {
 
-    private FileParser<T> fileParser;
+    private FileParser fileParser;
 
-    public void setFileParser(FileParser<T> fileParser) {
+    public void setFileParser(FileParser fileParser) {
         this.fileParser = fileParser;
     }
 
     @Override
-    public List<T> fillCollection(int length) {
+    public List<Object> fillCollection(int length) {
         return fileParser.parseFile().stream().limit(length).collect(Collectors.toList());
     }
 

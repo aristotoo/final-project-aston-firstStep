@@ -8,9 +8,10 @@ import com.aston.project.service.utils.generatorUtil.RandomDataSource;
  * у объекта этого типа есть три поля - пол, возраст и фамилия - каждый метод генерит случайные данные по этим полям
  * в статическом методе generatePerson данные передаются в сеттер-методы PersonBuilder. В завершении вызывается метод build для генерации объекта.
  */
-public class RandomPersonGenerator implements EntityGenerator<Person> {
+public class RandomPersonGenerator implements EntityGenerator {
     private static final int AGE = 120;
 
+    @SuppressWarnings("unchecked")
     @Override
     public Person generate() {
         return new Person.PersonBuilder().

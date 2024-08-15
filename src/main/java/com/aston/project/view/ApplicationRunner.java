@@ -22,7 +22,7 @@ public class ApplicationRunner {
     private static List<Object> collection = new ArrayList<>(); //коллекция
     private static boolean running = true;
     private static int collectionLength; //длина коллекции
-    private static CollectionFillStrategy<?> collectionFillStrategy; //стратегия заполнения
+    private static CollectionFillStrategy collectionFillStrategy; //стратегия заполнения
     private static int entityId; //храним выбор сущности для дальнейшей логики
     private static int fieldChoice = 0; //храним выбор поля для бинарного поиска
 
@@ -81,13 +81,13 @@ public class ApplicationRunner {
         switch (choice) {
             case FILE_FILLING:
                 //создаём стратегию для заполнения из файла
-                collectionFillStrategy = new FileCollectionFillStrategy<>();
+                collectionFillStrategy = new FileCollectionFillStrategy();
 
                 //запоминаем ID сущности
                 entityId = getUserChoice(1, Data.fileParsers.size());
 
                 // приводим стратегию к нужному типу и устанавливаем FileParser
-                ((FileCollectionFillStrategy<?>) collectionFillStrategy)
+                ((FileCollectionFillStrategy) collectionFillStrategy)
                         .setFileParser(Data.fileParsers.get(entityId));
 
                 // переход к следующему этапу
@@ -95,13 +95,13 @@ public class ApplicationRunner {
                 break;
             case RANDOM_FILLING:
                 //создаём стратегию для заполнения рандомом
-                collectionFillStrategy = new RandomDataCollectionFillStrategy<>();
+                collectionFillStrategy = new RandomDataCollectionFillStrategy();
 
                 //запоминаем ID сущности
                 entityId = getUserChoice(1, Data.entityGenerators.size());
 
                 // приводим стратегию к нужному типу и устанавливаем EntityGenerator
-                ((RandomDataCollectionFillStrategy<?>) collectionFillStrategy)
+                ((RandomDataCollectionFillStrategy) collectionFillStrategy)
                         .setEntityGenerator(Data.entityGenerators.get(entityId));
 
                 // переход к следующему этапу
@@ -109,13 +109,13 @@ public class ApplicationRunner {
                 break;
             case MANUAL_FILLING:
                 // создаём стратегию для заполнения вручную
-                collectionFillStrategy = new ManualCollectionFillStrategy<>();
+                collectionFillStrategy = new ManualCollectionFillStrategy();
 
                 //запоминаем ID сущности
                 entityId = getUserChoice(1, Data.inputHandlers.size());
 
                 // приводим стратегию к нужному типу и устанавливаем InputHandler
-                ((ManualCollectionFillStrategy<?>) collectionFillStrategy)
+                ((ManualCollectionFillStrategy) collectionFillStrategy)
                         .setInputHandler(Data.inputHandlers.get(entityId));
 
                 // переход к следующему этапу
@@ -145,7 +145,7 @@ public class ApplicationRunner {
     private static void handleCompletionAction() {
         handleCollectionSize();
         // создаём контекст заполнения и вкладываем в него стратегию
-        CollectionFillContext collectionFillContext = new CollectionFillContext<>(collectionFillStrategy);
+        CollectionFillContext collectionFillContext = new CollectionFillContext(collectionFillStrategy);
 
         // заполняем коллецию с помощью контекста заполнения
         collection = collectionFillContext.fill(collectionLength);
@@ -189,10 +189,10 @@ public class ApplicationRunner {
                     // устанавливаем стратегию в контекст
                     sortContext.setSortingStrategy(sortingStrategy);
 
-                    // сортируем коллекцию при помощи Comparator.comparing в который направлена функция
+                    // сортируем коллекцию при помощи ссылки на геттер сущности
                     sortContext.sort(collection, Data.functions
-                            .get(entityId) //получаем список полей для сущности которую выбрали ранее
-                            .get(fieldChoice - 1)); //применяем к объекту
+                            .get(entityId) // получаем список геттеров для сущности, которую выбрали ранее
+                            .get(fieldChoice - 1)); // получаем геттер
 
                     view.displaySortedMessage();
                     pass = true;
