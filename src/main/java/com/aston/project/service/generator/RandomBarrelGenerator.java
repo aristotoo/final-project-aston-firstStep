@@ -10,8 +10,6 @@ import com.aston.project.service.utils.generatorUtil.RandomDataSource;
  * в статическом методе generateBarrel данные передаются в сеттер-методы BarrelBuilder. В завершении вызывается метод build для генерации объекта.
  */
 public class RandomBarrelGenerator implements EntityGenerator, Filler {
-    private static final int RADIUS = random.nextInt(10);
-    private static final int HEIGHT = random.nextInt(15);
 
     @SuppressWarnings("unchecked")
     @Override
@@ -26,6 +24,8 @@ public class RandomBarrelGenerator implements EntityGenerator, Filler {
 
     //создается случайное число типа double для поля Volume, затем округляется число до 3 цифр после запятой
     private double generateRandomDouble() {
+        int RADIUS = random.nextInt(1,10);
+        int HEIGHT = random.nextInt(1,15);
         double barrelVolume = Math.PI * Math.pow(RADIUS, 2) * HEIGHT;
         return Math.ceil(barrelVolume);
     }
