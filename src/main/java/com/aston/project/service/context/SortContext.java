@@ -2,17 +2,17 @@ package com.aston.project.service.context;
 
 import com.aston.project.service.sort.SortingStrategy;
 
-import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 
-public class SortContext<T> {
-    private SortingStrategy<T> sortingStrategy;
+public class SortContext {
+    private SortingStrategy sortingStrategy;
 
-    public void setSortingStrategy(SortingStrategy<T> sortingStrategy) {
+    public void setSortingStrategy(SortingStrategy sortingStrategy) {
         this.sortingStrategy = sortingStrategy;
     }
 
-    public void sort(List<T> list, Comparator<? super T> comparator) {
-        sortingStrategy.sort(list, comparator);
+    public <T> void sort(List<T> list, Function<Object, Comparable<Object>> getter) {
+        sortingStrategy.sort(list, getter);
     }
 }

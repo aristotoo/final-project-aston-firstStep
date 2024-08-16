@@ -6,13 +6,13 @@ import com.aston.project.service.utils.FileParsingUtils;
 import java.util.Map;
 import java.util.Optional;
 
-public class BarrelParser implements EntityParser<Barrel> {
+public class BarrelParser implements EntityParser {
     private static final String VOLUME_PARAM = "volume";
     private static final String STORED_MATERIAL_PARAM = "storedMaterial";
     private static final String MATERIAL_PARAM = "material";
 
     @Override
-    public Optional<Barrel> parsing(Map<String, String> parameters) {
+    public Optional<? super Barrel> parsing(Map<String, String> parameters) {
         String volumeString = parameters.get(VOLUME_PARAM);
         String storedMaterial = parameters.get(STORED_MATERIAL_PARAM);
         String material = parameters.get(MATERIAL_PARAM);

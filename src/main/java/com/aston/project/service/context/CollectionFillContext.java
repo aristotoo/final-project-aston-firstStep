@@ -4,15 +4,15 @@ import com.aston.project.service.CollectionFillStrategy;
 
 import java.util.List;
 
-public class CollectionFillContext<T> {
+public class CollectionFillContext {
 
-    private final CollectionFillStrategy<T> fillStrategy;
+    private CollectionFillStrategy fillStrategy;
 
-    public CollectionFillContext(CollectionFillStrategy<T> fillStrategy) {
+    public void setCollectionFillContext(CollectionFillStrategy fillStrategy) {
         this.fillStrategy = fillStrategy;
     }
 
-    public List<T> fill(int length) {
+    public List<Object> fill(int length) {
         return fillStrategy.fillCollection(length);
     }
 }

@@ -3,22 +3,22 @@ package com.aston.project.service;
 import com.aston.project.service.file.FileParser;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
-public class FileCollectionFillStrategy<T> implements CollectionFillStrategy<T> {
+public class FileCollectionFillStrategy implements CollectionFillStrategy {
 
-    private FileParser<T> fileParser;
+    private Filler filler;
 
-    public FileCollectionFillStrategy(FileParser<T> fileParser) {
-        this.fileParser = fileParser;
-    }
-
-    public void setFileParser(FileParser<T> fileParser) {
-        this.fileParser = fileParser;
+    @Override
+    public void setFiller(Filler filler) {
+        this.filler = filler;
     }
 
     @Override
-    public List<T> fillCollection(int length) {
-        return fileParser.parseFile(length);
+    public List<Object> fillCollection(int length) {
+        return ((FileParser) filler).parseFile().stream().limit(length).collect(Collectors.toList());
     }
+
+
 }

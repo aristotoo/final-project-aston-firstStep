@@ -44,9 +44,7 @@ public class Barrel implements Comparable<Barrel> {
     @Override
     public int hashCode() {
         int result;
-        long temp;
-        temp = Double.doubleToLongBits(volume);
-        result = (int) (temp ^ (temp >>> 32));
+        result = Double.hashCode(volume);
         result = 31 * result + (storedMaterial != null ? storedMaterial.hashCode() : 0);
         result = 31 * result + (material != null ? material.hashCode() : 0);
         return result;

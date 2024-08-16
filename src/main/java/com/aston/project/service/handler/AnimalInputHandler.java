@@ -1,10 +1,11 @@
 package com.aston.project.service.handler;
 
 import com.aston.project.model.entity.Animal;
+import com.aston.project.service.Filler;
 
 import java.util.Scanner;
 
-public class AnimalInputHandler implements InputHandler<Animal> {
+public class AnimalInputHandler implements InputHandler, Filler {
 
     private final Scanner scanner;
 
@@ -12,6 +13,7 @@ public class AnimalInputHandler implements InputHandler<Animal> {
         this.scanner = scanner;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public Animal handleInput() {
         System.out.print("Введите вид: ");

@@ -5,23 +5,24 @@ import com.aston.project.service.handler.InputHandler;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManualCollectionFillStrategy<T> implements CollectionFillStrategy<T> {
+public class ManualCollectionFillStrategy implements CollectionFillStrategy {
 
-    private final InputHandler<T> inputHandler;
+    Filler filler;
 
-    public ManualCollectionFillStrategy(InputHandler<T> inputHandler) {
-        this.inputHandler = inputHandler;
+    @Override
+    public void setFiller(Filler filler) {
+        this.filler = filler;
     }
 
     @Override
-    public List<T> fillCollection(int length) {
-        List<T> collection = new ArrayList<>(length);
+    public List<Object> fillCollection(int length) {
+        List<Object> collection = new ArrayList<>(length);
 
         for (int i = 0; i < length; i++) {
             while (true) {
                 try {
                     System.out.println("Введите данные для элемента " + (i + 1) + ": ");
-                    collection.add(inputHandler.handleInput());
+                    collection.add(((InputHandler) filler).handleInput());
                     break;
                 } catch (Exception e) {
                     System.out.println("Ошибка: " + e.getMessage() + ". Попробуйте снова.");

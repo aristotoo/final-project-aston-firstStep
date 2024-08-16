@@ -17,7 +17,7 @@ public class ConsoleView {
         System.out.println("2. Заполнить случайными данными");
         System.out.println("3. Заполнить вручную");
         System.out.println("0. Выход из приложения");
-        System.out.println("-----------------------------------------------------------");
+        displayDivider();
     }
 
     /**
@@ -30,36 +30,16 @@ public class ConsoleView {
             System.out.println(i++ + ". " + entity);
         }
         System.out.println("0. Выход из приложения");
-        System.out.println("-----------------------------------------------------------");
+        displayDivider();
     }
 
-    /**
-     * Запрашивает у пользователя абсолютный путь к файлу для заполнения коллекции.
-     */
-    public void displayFileFilling() {
-        System.out.println("Введите абсолютный путь к файлу:");
-        System.out.println("Пример для Unix-систем: '/home/user/documents/file.txt'");
-        System.out.println("Пример для Windows: 'C:\\Users\\User\\Documents\\file.txt'");
-        System.out.println("-----------------------------------------------------------");
-    }
-
-    /**
-     * Запрашивает у пользователя значение поля для ручного заполнения коллекции.
-     *
-     * @param field имя поля, для которого запрашивается значение
-     */
-    public void displayManualFilling(String field) {
-        System.out.println("Введите значение поля " + field.substring(0, 1).toUpperCase() +
-                field.substring(1) + ":");
-        System.out.println("-----------------------------------------------------------");
-    }
 
     /**
      * Запрашивает у пользователя размер создаваемой коллекции.
      */
     public void displayCollectionSizePrompt() {
         System.out.println("Сколько элементов должно быть в коллекции? Введите целое число:");
-        System.out.println("-----------------------------------------------------------");
+        displayDivider();
     }
 
     /**
@@ -74,12 +54,30 @@ public class ConsoleView {
      *
      * @param fields массив доступных параметров для сортировки
      */
-    public void displaySearchPrompt(String[] fields) {
+    public void displaySearchPrompt(List<String> fields) {
         System.out.println("Для сортировки коллекции выберите один из доступных параметров:");
         int i = 1;
         for (String field : fields) {
             System.out.println(i++ + ". " + field.substring(0, 1).toUpperCase() + field.substring(1));
         }
+        displayDivider();
+    }
+
+    /**
+     * Отображает меню с выбором способа сортировки.
+     */
+    public void displaySearches() {
+        System.out.println("Выберите способ сортировки:");
+        System.out.println("1. Сортировка чётных элементов");
+        System.out.println("2. Сортировка нечётных элементов");
+        System.out.println("3. Сортировка вставкой");
+        displayDivider();
+    }
+
+    /**
+     * Отображает разделитель текста.
+     */
+    public void displayDivider() {
         System.out.println("-----------------------------------------------------------");
     }
 
@@ -95,7 +93,7 @@ public class ConsoleView {
      */
     public void displaySearchValuePrompt() {
         System.out.println("Введите значение искомого элемента:");
-        System.out.println("-----------------------------------------------------------");
+        displayDivider();
     }
 
     /**
@@ -149,7 +147,7 @@ public class ConsoleView {
     public void displayInputError(String errorMessage) {
         System.out.println("Ошибка ввода: " + errorMessage);
         System.out.println("Пожалуйста, попробуйте снова.");
-        System.out.println("-----------------------------------------------------------");
+        displayDivider();
     }
 
     /**
@@ -161,7 +159,7 @@ public class ConsoleView {
         System.out.println("2. Сортировать коллекцию");
         System.out.println("3. Вернуться в начало");
         System.out.println("0. Выход из приложения");
-        System.out.println("-----------------------------------------------------------");
+        displayDivider();
     }
 
     /**
@@ -173,6 +171,6 @@ public class ConsoleView {
         System.out.println("2. Найти элемент");
         System.out.println("3. Вернуться в начало");
         System.out.println("0. Выход из приложения");
-        System.out.println("-----------------------------------------------------------");
+        displayDivider();
     }
 }

@@ -1,5 +1,5 @@
 package com.aston.project.service.handler;
 
-public interface InputHandler<T> {
-    T handleInput();
+public interface InputHandler {
+    <T> T handleInput();
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
-public class PersonParser implements EntityParser<Person> {
+public class PersonParser implements EntityParser {
     private static final String SURNAME_PARAM = "surname";
     private static final String AGE_PARAM = "age";
     private static final String GENDER_PARAM = "gender";
@@ -15,7 +15,7 @@ public class PersonParser implements EntityParser<Person> {
             Set.of("мужской", "male", "женский", "female");
 
     @Override
-    public Optional<Person> parsing(Map<String, String> parameters) {
+    public Optional<? super Person> parsing(Map<String, String> parameters) {
         String surname = parameters.get(SURNAME_PARAM);
         String ageString = parameters.get(AGE_PARAM);
         String genderString = parameters.get(GENDER_PARAM);
