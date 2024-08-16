@@ -1,14 +1,14 @@
 package com.aston.project.service.file;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -31,29 +31,20 @@ public class TxtFileParser<T> implements FileParser<T> {
      * Парсинг файла.
      * Считываем файл в строку.
      * Формат:
-     * {
-     * парам:значение,
-     * парам:значение,
+     * {парам:значение,парам:значение,...},
+     * {парам:значение,парам:значение,...},
      * .....
-     * },
-     * {
-     * парам:значение,
-     * парам:значение,
-     * .....
-     * },
-     * ....
      * Разбиваем строку на строки соответсвующие entity.
      * Каждую строку преобразуем в HashMap имя параметра - значение. И формируем объект entity с помощью EntityParser.
      */
     @Override
-    public List<T> parseFile() {
-        String fullFile = readFileToString();
-        List<String> separatedStringToObj = separateStringToObjectStrings(fullFile);
-        if (separatedStringToObj.isEmpty()) {
+    public List<T> parseFile(int length) {
+        List<String> stringsObject = readFile(length);
+        if (stringsObject.isEmpty()) {
             return new ArrayList<>();
         }
         List<T> parsedEntity = new ArrayList<>();
-        for (String line : separatedStringToObj) {
+        for (String line : stringsObject) {
             String[] split = line.split(SEPARATOR_PARAMETERS);
             Map<String, String> parameters = Stream.of(split)
                     .collect(Collectors.toMap(s1 -> customSplit(s1)[0], s2 -> customSplit(s2)[1]));
@@ -77,32 +68,44 @@ public class TxtFileParser<T> implements FileParser<T> {
     }
 
     /**
-     * Считывает весь в файл в строку.
+     * Построчное считывание файла
+     *
+     * @param length - требуемое количество данных для считывания
      */
-    private String readFileToString() {
-        byte[] fileContent = null;
+    private List<String> readFile(int length) {
+        File file = null;
         try {
-            Path path = Paths.get(Objects.requireNonNull(getClass().getClassLoader().getResource(nameFile)).toURI());
-            fileContent = Files.readAllBytes(path);
-        } catch (IOException | URISyntaxException e) {
+            file = new File(getClass().getClassLoader().getResource(nameFile).toURI());
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-        return new String(fileContent).replaceAll(CLEAR_LINE_BREAKS_REGEXP, "");
+        List<String> result = new ArrayList<>(length);
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                separateStringToObjectStrings(line).ifPresent(result::add);
+                if (result.size() == length) {
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
     }
 
     /**
-     * Разбивает строку на строки-объекты
+     * Вырезает строку между скобок.
      *
      * @param string - строка (контент файла)
      */
-    private List<String> separateStringToObjectStrings(String string) {
+    private Optional<String> separateStringToObjectStrings(String string) {
         Pattern pattern = Pattern.compile(CUT_OBJECT_FROM_LINE_REGEXP);
         Matcher matcher = pattern.matcher(string);
-        List<String> lineForObjects = new ArrayList<>();
-        while (matcher.find()) {
-            lineForObjects.add(matcher.group(1));
+        if (matcher.find()) {
+            return Optional.of(matcher.group(1));
         }
-        return lineForObjects;
+        return Optional.empty();
     }
 
 }

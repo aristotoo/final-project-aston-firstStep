@@ -1,6 +1,9 @@
 package com.aston.project.view;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Scanner;
 
 /**
  * Класс ApplicationRunner отвечает за запуск консольного интерфейса приложения,
@@ -79,7 +82,6 @@ public class ApplicationRunner {
 
     /**
      * Обрабатывает выбор сущности для заполнения коллекции.
-     *
      */
     private static void handleEntity() {
         view.displayEntitySelection(classes); //classes коллекция заглушка с названиями классов

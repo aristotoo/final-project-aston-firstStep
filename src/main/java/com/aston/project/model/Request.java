@@ -75,6 +75,7 @@ public class Request {
         private int length;
         private String parameterName;
         private String searchValue;
+
         public RequestBuilder entity(String entity) {
             this.entity = entity;
             return this;
@@ -99,10 +100,12 @@ public class Request {
             this.parameterName = parameterName;
             return this;
         }
+
         public RequestBuilder searchValue(String searchValue) {
             this.searchValue = searchValue;
             return this;
         }
+
         public Request build() {
             return new Request(this);
         }
