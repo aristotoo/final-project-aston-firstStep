@@ -1,6 +1,7 @@
 package com.aston.project.service.generator;
 
 import com.aston.project.model.entity.Animal;
+import com.aston.project.service.Filler;
 import com.aston.project.service.utils.generatorUtil.RandomDataSource;
 
 import static com.aston.project.service.utils.generatorUtil.RandomDataSource.ANIMALS;
@@ -11,7 +12,7 @@ import static com.aston.project.service.utils.generatorUtil.RandomDataSource.COL
 у объекта этого типа есть три поля - вид животного, цвет глаз и наличие шерсти - каждый метод генерит случайные данные по этим полям
 в статическом методе generateAnimal данные передаются в сеттер-методы AnimalBuilder. В завершении вызывается метод build для генерации объекта.
  */
-public class RandomAnimalGenerator implements EntityGenerator {
+public class RandomAnimalGenerator implements EntityGenerator, Filler {
 
     @SuppressWarnings("unchecked")
     @Override

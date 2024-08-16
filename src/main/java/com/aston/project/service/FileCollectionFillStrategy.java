@@ -8,15 +8,16 @@ import java.util.stream.Collectors;
 
 public class FileCollectionFillStrategy implements CollectionFillStrategy {
 
-    private FileParser fileParser;
+    private Filler filler;
 
-    public void setFileParser(FileParser fileParser) {
-        this.fileParser = fileParser;
+    @Override
+    public void setFiller(Filler filler) {
+        this.filler = filler;
     }
 
     @Override
     public List<Object> fillCollection(int length) {
-        return fileParser.parseFile().stream().limit(length).collect(Collectors.toList());
+        return ((FileParser) filler).parseFile().stream().limit(length).collect(Collectors.toList());
     }
 
 

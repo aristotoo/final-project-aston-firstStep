@@ -6,9 +6,9 @@ import java.util.List;
 
 public class CollectionFillContext {
 
-    private final CollectionFillStrategy fillStrategy;
+    private CollectionFillStrategy fillStrategy;
 
-    public CollectionFillContext(CollectionFillStrategy fillStrategy) {
+    public void setCollectionFillContext(CollectionFillStrategy fillStrategy) {
         this.fillStrategy = fillStrategy;
     }
 

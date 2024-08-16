@@ -1,4 +1,4 @@
-package com.aston.project.view;
+package com.aston.project.service.utils;
 
 import com.aston.project.model.entity.*;
 import com.aston.project.service.*;
@@ -57,6 +57,13 @@ public final class Data {
      */
     public static final Map<Integer, List<Function<Object, Comparable<Object>>>> functions;
 
+    /**
+     * Коллекция для хранения заполнителей для стратегий.
+     */
+    public static final Map<Integer, Map<Integer, Filler>> fillers;
+
+
+
     static {
         // Инициализация коллекций
         inputHandlers = initializeInputHandlers();
@@ -66,6 +73,27 @@ public final class Data {
         collectionFillStrategies = initializeCollectionFillStrategies();
         classFields = initializeClassFields();
         functions = initializeFunctions();
+        fillers = initializeFillers();
+    }
+
+    private static Map<Integer, Map<Integer, Filler>> initializeFillers() {
+        Map<Integer, Map<Integer, Filler>> fillers = new LinkedHashMap<>();
+        int i = 1;
+        fillers.put(i, new LinkedHashMap<>());
+        for (Integer id : fileParsers.keySet()) {
+            fillers.get(i).put(id, (Filler) fileParsers.get(id));
+        }
+        i++;
+        fillers.put(i, new LinkedHashMap<>());
+        for (Integer id : entityGenerators.keySet()) {
+            fillers.get(i).put(id, (Filler) entityGenerators.get(id));
+        }
+        i++;
+        fillers.put(i, new LinkedHashMap<>());
+        for (Integer id : inputHandlers.keySet()) {
+            fillers.get(i).put(id, (Filler) inputHandlers.get(id));
+        }
+        return fillers;
     }
 
     /**
@@ -160,6 +188,7 @@ public final class Data {
         }
         return funcMap;
     }
+
 
     /**
      * Получает список функций, возвращающих сравниваемые объекты для заданного класса.

@@ -7,7 +7,6 @@ package com.aston.project;
  */
 public class App {
     public static void main(String[] args)  {
-        //ApplicationRunner.run();
-        com.aston.project.view.ApplicationRunner.startApplication();
+        ApplicationRunner.startApplication();
     }
 }

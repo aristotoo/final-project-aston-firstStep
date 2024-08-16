@@ -1,6 +1,7 @@
 package com.aston.project.service.generator;
 
 import com.aston.project.model.entity.Barrel;
+import com.aston.project.service.Filler;
 import com.aston.project.service.utils.generatorUtil.RandomDataSource;
 
 /**
@@ -8,7 +9,7 @@ import com.aston.project.service.utils.generatorUtil.RandomDataSource;
  * у объекта этого типа есть три поля - объем бочки, хранимый в ней материал и материал, из которого изготовлена бочка - каждый метод генерит случайные данные по этим полям
  * в статическом методе generateBarrel данные передаются в сеттер-методы BarrelBuilder. В завершении вызывается метод build для генерации объекта.
  */
-public class RandomBarrelGenerator implements EntityGenerator {
+public class RandomBarrelGenerator implements EntityGenerator, Filler {
     private static final int RADIUS = random.nextInt(10);
     private static final int HEIGHT = random.nextInt(15);
 

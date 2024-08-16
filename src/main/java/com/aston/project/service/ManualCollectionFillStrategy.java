@@ -7,10 +7,11 @@ import java.util.List;
 
 public class ManualCollectionFillStrategy implements CollectionFillStrategy {
 
-    private InputHandler inputHandler;
+    Filler filler;
 
-    public void setInputHandler(InputHandler inputHandler) {
-        this.inputHandler = inputHandler;
+    @Override
+    public void setFiller(Filler filler) {
+        this.filler = filler;
     }
 
     @Override
@@ -21,7 +22,7 @@ public class ManualCollectionFillStrategy implements CollectionFillStrategy {
             while (true) {
                 try {
                     System.out.println("Введите данные для элемента " + (i + 1) + ": ");
-                    collection.add(inputHandler.handleInput());
+                    collection.add(((InputHandler) filler).handleInput());
                     break;
                 } catch (Exception e) {
                     System.out.println("Ошибка: " + e.getMessage() + ". Попробуйте снова.");

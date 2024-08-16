@@ -1,10 +1,11 @@
 package com.aston.project.service.handler;
 
 import com.aston.project.model.entity.Barrel;
+import com.aston.project.service.Filler;
 
 import java.util.Scanner;
 
-public class BarrelInputHandler implements InputHandler {
+public class BarrelInputHandler implements InputHandler, Filler {
 
     private final Scanner scanner;
 

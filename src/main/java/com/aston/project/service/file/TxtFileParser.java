@@ -1,5 +1,7 @@
 package com.aston.project.service.file;
 
+import com.aston.project.service.Filler;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -14,7 +16,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class TxtFileParser implements FileParser {
+public class TxtFileParser implements FileParser, Filler {
     private final EntityParser entityParser;
     private final String nameFile;
     private static final String CLEAR_LINE_BREAKS_REGEXP = "[\\n\\r]";

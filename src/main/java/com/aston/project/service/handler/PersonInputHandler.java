@@ -1,10 +1,11 @@
 package com.aston.project.service.handler;
 
 import com.aston.project.model.entity.Person;
+import com.aston.project.service.Filler;
 
 import java.util.Scanner;
 
-public class PersonInputHandler implements InputHandler {
+public class PersonInputHandler implements InputHandler, Filler {
 
     private final Scanner scanner;
 

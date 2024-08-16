@@ -12,8 +12,10 @@ public class Controller {
     SortContext sortContext;
     CollectionFillContext fillContext;
 
-    public Controller(SortContext sortContext, CollectionFillContext fillContext) {
+    public void setControllerSortContext(SortContext sortContext) {
         this.sortContext = sortContext;
+    }
+    public void setControllerFillContext(CollectionFillContext fillContext) {
         this.fillContext = fillContext;
     }
 

@@ -6,17 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RandomDataCollectionFillStrategy implements CollectionFillStrategy {
-    private EntityGenerator entityGenerator;
 
-    public void setEntityGenerator (EntityGenerator entityGenerator) {
-        this.entityGenerator = entityGenerator;
+    private Filler filler;
+
+
+    @Override
+    public void setFiller(Filler filler) {
+        this.filler = filler;
     }
 
     @Override
     public List<Object> fillCollection(int length) {
         List<Object> collection = new ArrayList<>(length);
         for (int i = 0; i < length; i++) {
-            collection.add(entityGenerator.generate());
+            collection.add(((EntityGenerator) filler).generate());
         }
         return collection;
     }
