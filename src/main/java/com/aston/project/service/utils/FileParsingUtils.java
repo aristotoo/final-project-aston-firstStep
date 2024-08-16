@@ -1,7 +1,7 @@
 package com.aston.project.service.utils;
 
 public class FileParsingUtils {
-    public static final String ONLY_LETTER_REGEXP = "[a-zA-Zа-яА-Я]+";
+    public static final String ONLY_LETTER_REGEXP = "\\p{L}+";
 
     /**
      * Проверка строки на то что содерджит только буквы.
