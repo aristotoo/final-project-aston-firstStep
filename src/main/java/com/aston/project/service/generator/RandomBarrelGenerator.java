@@ -1,6 +1,6 @@
 package com.aston.project.service.generator;
 
-import com.aston.project.model.entity.Barrel;
+import com.aston.project.model.Barrel;
 import com.aston.project.service.Filler;
 import com.aston.project.service.utils.generatorUtil.RandomDataSource;
 

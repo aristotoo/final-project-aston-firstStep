@@ -1,7 +1,7 @@
-package com.aston.project.service.file;
+package com.aston.project.service.file.entityParser;
 
-import com.aston.project.model.entity.Person;
-import com.aston.project.service.utils.FileParsingUtils;
+import com.aston.project.model.Person;
+import com.aston.project.service.utils.fileUtils.FileParsingUtils;
 
 import java.util.Map;
 import java.util.Optional;

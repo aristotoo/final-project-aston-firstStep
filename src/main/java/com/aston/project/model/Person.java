@@ -1,4 +1,4 @@
-package com.aston.project.model.entity;
+package com.aston.project.model;
 
 import java.util.Objects;
 

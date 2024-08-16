@@ -1,8 +1,13 @@
-package com.aston.project.service.utils;
+package com.aston.project.config;
 
-import com.aston.project.model.entity.*;
+import com.aston.project.model.Animal;
+import com.aston.project.model.Barrel;
+import com.aston.project.model.Person;
 import com.aston.project.service.*;
 import com.aston.project.service.file.*;
+import com.aston.project.service.file.entityParser.AnimalParser;
+import com.aston.project.service.file.entityParser.BarrelParser;
+import com.aston.project.service.file.entityParser.PersonParser;
 import com.aston.project.service.generator.*;
 import com.aston.project.service.handler.*;
 import com.aston.project.service.sort.*;
@@ -15,7 +20,7 @@ import java.util.function.Function;
 /**
  * Класс Data содержит статические коллекции и методы для инициализации и управления данными.
  */
-public final class Data {
+public final class Configuration {
 
     /**
      * Коллекция для хранения обработчиков ввода.

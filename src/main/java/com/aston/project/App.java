@@ -1,9 +1,7 @@
 package com.aston.project;
 
-import java.io.IOException;
-
 /**
- * Hello world!
+ * Класс (@code App) является точкой входа в приложение
  */
 public class App {
     public static void main(String[] args)  {

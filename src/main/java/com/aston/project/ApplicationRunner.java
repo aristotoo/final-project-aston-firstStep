@@ -5,7 +5,7 @@ import com.aston.project.service.*;
 import com.aston.project.service.context.CollectionFillContext;
 import com.aston.project.service.context.SortContext;
 import com.aston.project.service.utils.Converter;
-import com.aston.project.service.utils.Data;
+import com.aston.project.config.Configuration;
 import com.aston.project.view.ConsoleView;
 
 import java.lang.reflect.Field;
@@ -77,12 +77,12 @@ public class ApplicationRunner {
         } else {
             fillStrategyId = userChoice; // выбираем стратегию заполнения
 
-            view.displayEntitySelection(Data.classes
+            view.displayEntitySelection(Configuration.classes
                     .stream() //создаём поток из листа классов
                     .map(Class::getSimpleName) //преобразуем элементы потока в названия классов
                     .toList()); //собираем в лист и отображаем
 
-            entityId = getUserChoice(1, Data.classes.size()); // выбираем сущность
+            entityId = getUserChoice(1, Configuration.classes.size()); // выбираем сущность
 
             handleCompletionAction(); // переходим на следующий этап
         }
@@ -108,10 +108,10 @@ public class ApplicationRunner {
         handleCollectionSize();
 
         // создаём стратегию заполнения
-        CollectionFillStrategy collectionFillStrategy = Data.collectionFillStrategies.get(fillStrategyId);
+        CollectionFillStrategy collectionFillStrategy = Configuration.collectionFillStrategies.get(fillStrategyId);
 
         // сетаем филлер
-        collectionFillStrategy.setFiller(Data.fillers.get(fillStrategyId).get(entityId));
+        collectionFillStrategy.setFiller(Configuration.fillers.get(fillStrategyId).get(entityId));
 
         // сетаем контекст стратегией
         collectionFillContext.setCollectionFillContext(collectionFillStrategy);
@@ -140,7 +140,7 @@ public class ApplicationRunner {
                     break;
                 case SORT_COLLECTION:
                     // выводим пользователю список полей, по которым возможна сортировка
-                    view.displaySearchPrompt(Data.classFields
+                    view.displaySearchPrompt(Configuration.classFields
                             .get(entityId) // получем поля
                             .stream() // создаём поток
                             .map(Field::getName) // преобразуем поля в названия полей
@@ -148,22 +148,22 @@ public class ApplicationRunner {
 
 
                     // запоминаем выбор поля
-                    fieldChoice = getUserChoice(1, Data.classFields.get(entityId).size());
+                    fieldChoice = getUserChoice(1, Configuration.classFields.get(entityId).size());
 
                     // отображаем текущий список сортировок
                     view.displaySearches();
 
                     // выбираем сортировку
-                    int sortChoice = getUserChoice(1, Data.sortingStrategies.size());
+                    int sortChoice = getUserChoice(1, Configuration.sortingStrategies.size());
 
                     // сетаем стратегию сортировки в контекст
-                    sortContext.setSortingStrategy(Data.sortingStrategies.get(sortChoice));
+                    sortContext.setSortingStrategy(Configuration.sortingStrategies.get(sortChoice));
 
                     // сетаем контекст в контроллер
                     controller.setControllerSortContext(sortContext);
 
                     // запускаем сортировку
-                    controller.sortCollection(collection, Data.functions
+                    controller.sortCollection(collection, Configuration.functions
                             .get(entityId) // получаем список геттеров для сущности, которую выбрали ранее
                             .get(fieldChoice - 1)); // получаем геттер
 
@@ -207,13 +207,13 @@ public class ApplicationRunner {
                     String searchValue = scanner.nextLine();
 
                     //конвертируем искомый элемент в нужный тип
-                    Object objectForSearch = Converter.convertToFieldType(searchValue, Data.classFields
+                    Object objectForSearch = Converter.convertToFieldType(searchValue, Configuration.classFields
                             .get(entityId) //получаем список полей выбранной сущности
                             .get(fieldChoice - 1) //получаем поле объекта по которому производился поиск
                             .getType()); //получаем тип поля для присвоения нужного типа объекту поиска
 
                     // ищем элемент в коллекции при помощи контроллера
-                    Optional<?> object = controller.search(collection, objectForSearch, Data.functions
+                    Optional<?> object = controller.search(collection, objectForSearch, Configuration.functions
                             .get(entityId) // получаем поля сущности
                             .get(fieldChoice - 1)); // получаем геттер поля возвращающий Comparable<Object>
 

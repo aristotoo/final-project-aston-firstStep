@@ -1,6 +1,6 @@
 package com.aston.project.service.handler;
 
-import com.aston.project.model.entity.Person;
+import com.aston.project.model.Person;
 import com.aston.project.service.Filler;
 
 import java.util.Scanner;

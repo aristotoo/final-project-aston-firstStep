@@ -1,6 +1,6 @@
 package com.aston.project.service.handler;
 
-import com.aston.project.model.entity.Animal;
+import com.aston.project.model.Animal;
 import com.aston.project.service.Filler;
 
 import java.util.Scanner;
