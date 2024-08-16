@@ -1,13 +1,10 @@
 package com.aston.project;
 
-import com.aston.project.controller.Controller;
-
 /**
- * Hello world!
- *
+ * Класс (@code App) является точкой входа в приложение
  */
 public class App {
-    public static void main( String[] args ) {
-        new Controller().start();
+    public static void main(String[] args)  {
+        ApplicationRunner.startApplication();
     }
 }

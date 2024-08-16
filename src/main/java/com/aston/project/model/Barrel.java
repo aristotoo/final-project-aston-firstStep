@@ -1,16 +1,21 @@
-package com.aston.project.model.entity;
+package com.aston.project.model;
 
 import java.util.Objects;
 
-public class Barrel {
+public class Barrel implements Comparable<Barrel> {
     private final double volume;
     private final String storedMaterial;
     private final String material;
 
-    private Barrel(BarrelBuilder builder){
+    private Barrel(BarrelBuilder builder) {
         this.volume = builder.volume;
         this.storedMaterial = builder.storedMaterial;
         this.material = builder.material;
+    }
+
+    @Override
+    public int compareTo(Barrel o) {
+        return this.getMaterial().compareTo(o.getMaterial());
     }
 
     public double getVolume() {
@@ -39,9 +44,7 @@ public class Barrel {
     @Override
     public int hashCode() {
         int result;
-        long temp;
-        temp = Double.doubleToLongBits(volume);
-        result = (int) (temp ^ (temp >>> 32));
+        result = Double.hashCode(volume);
         result = 31 * result + (storedMaterial != null ? storedMaterial.hashCode() : 0);
         result = 31 * result + (material != null ? material.hashCode() : 0);
         return result;
@@ -56,27 +59,27 @@ public class Barrel {
                 '}';
     }
 
-    public static class BarrelBuilder{
+    public static class BarrelBuilder {
         private double volume;
         private String storedMaterial;
         private String material;
 
-        public BarrelBuilder setVolume(double volume){
+        public BarrelBuilder setVolume(double volume) {
             this.volume = volume;
             return this;
         }
 
-        public BarrelBuilder setStoredMaterial(String storedMaterial){
+        public BarrelBuilder setStoredMaterial(String storedMaterial) {
             this.storedMaterial = storedMaterial;
             return this;
         }
 
-        public BarrelBuilder setMaterial(String material){
+        public BarrelBuilder setMaterial(String material) {
             this.material = material;
             return this;
         }
 
-        public Barrel build(){
+        public Barrel build() {
             return new Barrel(this);
         }
     }

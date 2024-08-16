@@ -1,0 +1,6 @@
+{surname:Иван,gender:male,age:35},
+{surname:Петя,gender:male,age:4},
+{surname:Мария,gender:female,age:15},
+{surname:Света,gender:female,age:14},
+{surname:Алексей,gender:male,age:45},
+{surname:Саша,gender:female,age:34}

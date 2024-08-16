@@ -1,16 +1,21 @@
-package com.aston.project.model.entity;
+package com.aston.project.model;
 
 import java.util.Objects;
 
-public class Animal {
+public class Animal implements Comparable<Animal> {
     private final String species;
     private final String eyeColor;
     private final boolean hasFur;
 
-    private Animal(AnimalBuilder builder){
+    private Animal(AnimalBuilder builder) {
         this.species = builder.species;
         this.eyeColor = builder.eyeColor;
         this.hasFur = builder.hasFur;
+    }
+
+    @Override
+    public int compareTo(Animal o) {
+        return this.getSpecies().compareTo(o.getSpecies());
     }
 
     public String getSpecies() {
@@ -52,27 +57,27 @@ public class Animal {
         return result;
     }
 
-    public static class AnimalBuilder{
+    public static class AnimalBuilder {
         private String species;
         private String eyeColor;
         private boolean hasFur;
 
-        public AnimalBuilder setSpecies(String species){
+        public AnimalBuilder setSpecies(String species) {
             this.species = species;
             return this;
         }
 
-        public AnimalBuilder setEyeColor(String eyeColor){
+        public AnimalBuilder setEyeColor(String eyeColor) {
             this.eyeColor = eyeColor;
             return this;
         }
 
-        public AnimalBuilder setHasFur(boolean hasFur){
+        public AnimalBuilder setHasFur(boolean hasFur) {
             this.hasFur = hasFur;
             return this;
         }
 
-        public Animal build(){
+        public Animal build() {
             return new Animal(this);
         }
     }
