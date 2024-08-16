@@ -76,6 +76,11 @@ public final class Data {
         fillers = initializeFillers();
     }
 
+    /**
+     * Инициализирует коллекцию объектов необходимых для стратегий заполнения.
+     *
+     * @return коллекция заполнителей для стратегий.
+     */
     private static Map<Integer, Map<Integer, Filler>> initializeFillers() {
         Map<Integer, Map<Integer, Filler>> fillers = new LinkedHashMap<>();
         int i = 1;
